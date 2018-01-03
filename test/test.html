@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Full test</title>
+        <meta charset="UTF-8">
+
+        <style>
+            body {
+                font-family: sans-serif;
+            }
+        </style>
+        <script src="../node_modules/d3/build/d3.js"></script>
+        <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+        <script src="../dist/bvu.js"></script>
+    </head>
+    <body>
+      <svg id="vis"></svg>
+      <script>
+        var svg = d3.select("svg").attr("width",1050).attr("height",525);
+        var quantization = bvu.quantization().branching(2).layers(4);
+        var scale = bvu.scale().quantize(quantization).range(d3.interpolateViridis);
+        var iscale = bvu.scale().range(d3.interpolateViridis);
+
+        var sQuantization = bvu.squareQuantization().n(4);
+        var sScale = bvu.scale().quantize(sQuantization).range(d3.interpolateViridis);
+
+        var legendData = [];
+        var temp = quantization.tree();
+        for(var i = 0;i<temp.length;i++) {
+          legendData[i] = temp[temp.length-i-1];
+        }
+
+        var iLegendData = [];
+        temp = sQuantization.matrix();
+        for(var i = 0;i<temp.length;i++) {
+          iLegendData[i] = temp[temp.length-i-1];
+        }
+
+        var arcmap = bvu.arcmap().size(150).scale(iscale).data(legendData);
+        svg.append("g").call(arcmap);
+        var heatmap = bvu.heatmap().size(150).scale(iscale).data(legendData).x(150);
+        svg.append("g").call(heatmap);
+
+        var iarcmap = bvu.arcmap().size(150).scale(sScale).data(iLegendData).x(325);
+        svg.append("g").call(iarcmap);
+        var iheatmap = bvu.heatmap().size(150).scale(sScale).data(iLegendData).x(475);
+        svg.append("g").call(iheatmap);
+
+        var n = 5;
+        var randomData = [];
+        for(var i = 0;i<n;i++){
+          randomData[i] = [];
+          for(var j = 0;j<n;j++){
+            randomData[i][j] = {u: Math.random(), v: Math.random()};
+          }
+        }
+
+        var vsup = bvu.heatmap().size(150).scale(scale).data(randomData).x(0).y(175).id("vsup");
+        svg.append("g").call(vsup);
+        var ssum = bvu.heatmap().size(150).scale(sScale).data(randomData).x(175).y(175).id("2d");
+        svg.append("g").call(ssum);
+        var isum = bvu.heatmap().size(150).scale(iscale).data(randomData).x(350).y(175).id("continuous");
+        svg.append("g").call(isum);
+
+        var el = d3.select("body").append("div")
+          .attr("style", "float:left");
+
+        var square = bvu.csquare(150,d3.interpolateViridis).id("csquare");
+        el.append("div").call(square);
+        var arc = bvu.carc(150,d3.interpolateViridis).id("carc");
+        el.append("div").call(arc);
+
+        var valueScale = d3.scaleQuantize()
+            .domain([0, 1])
+            .range(d3.quantize(d3.interpolateViridis, 4));
+
+        var uncertaintyScale = d3.scaleQuantize()
+            .domain([0, 1])
+            .range(d3.schemeGreys[4].reverse());
+
+        var scale1dV = function(d) { return valueScale(d.v);};
+        var scale1dU = function(d) { return uncertaintyScale(d.u);};
+        var scaleContinuous1dV = function(d) {return d3.interpolateViridis(d.v);};
+        var scaleContinuous1dU = function(d) {return d3.interpolateGreys(1 - d.u);};
+
+        var greyMap = bvu.heatmap().size(150).scale(scale1dU).data(iLegendData).x(650);
+        svg.append("g").call(greyMap);
+
+        var colorMap = bvu.heatmap().size(150).scale(scale1dV).data(iLegendData).x(825);
+        svg.append("g").call(colorMap);
+
+        var juxtaV = bvu.heatmap().size(150).scale(scale1dV).data(randomData).x(525).y(175).id("juxtaV");
+        svg.append("g").call(juxtaV);
+
+        var juxtaU = bvu.heatmap().size(150).scale(scale1dU).data(randomData).x(700).y(175).id("juxtaU");
+        svg.append("g").call(juxtaU);
+
+        var juxtaCV = bvu.heatmap().size(150).scale(scaleContinuous1dV).data(randomData).x(0).y(350).id("juxtaCV");
+        svg.append("g").call(juxtaCV);
+
+        var juxtaCU = bvu.heatmap().size(150).scale(scaleContinuous1dU).data(randomData).x(175).y(350).id("juxtaCU");
+        svg.append("g").call(juxtaCU);
+      </script>
+    </body>
+</html>

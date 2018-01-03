@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Continuous Heatmap test</title>
+        <meta charset="UTF-8">
+
+        <style>
+            body {
+                font-family: sans-serif;
+            }
+        </style>
+        <script src="../node_modules/d3/build/d3.js"></script>
+        <script src="../dist/bvu.js"></script>
+    </head>
+    <body>
+      <div id="vis"></div>
+      <script>
+        var el = d3.select("div");
+
+        var square = bvu.csquare(100,d3.interpolateViridis);
+        el.append("div").call(square);
+
+        var arc = bvu.carc(100,d3.interpolateViridis);
+        el.append("div").call(arc);
+
+        var line = bvu.cline(100,10,d3.interpolateViridis);
+        el.append("div").call(line);
+      </script>
+    </body>
+</html>
