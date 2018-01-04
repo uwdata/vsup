@@ -3,10 +3,10 @@ import resolve from "rollup-plugin-node-resolve";
 export default {
   input: "src/index.js",
   output: {
-    file: "dist/bvu.js", 
+    file: "dist/index.js", 
     format: "iife"
   },
-  name: "bvu",
+  name: "vsup",
   plugins: [
     resolve()
   ]

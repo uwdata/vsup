@@ -1,8 +1,8 @@
 {
     "name": "vsup",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Value-Suppressing Uncertainty Palettes. A technique for creating bivariate scales for depicting uncertainty, using D3.",
-    "main": "bin/bvu.js",
+    "main": "dist/index.js",
     "scripts": {
         "build": "rollup -c",
         "watch": "rollup -c -w",
