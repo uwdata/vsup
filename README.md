@@ -1,4 +1,7 @@
 # vsup
+
+[![npm version](https://img.shields.io/npm/v/vsup.svg)](https://www.npmjs.com/package/vsup)
+
 Code for generating Value-Suppressing Uncertainty Palettes for use in D3 charts. You can find the [research paper about VSUPs on our website](http://idl.cs.washington.edu/papers/uncertainty-palettes).
 
 If you use this module for a publication, please cite VSUPs as:
