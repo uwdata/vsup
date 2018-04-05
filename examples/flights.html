@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Flight example</title>
+  <meta charset="UTF-8">
+  
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+  </style>
+  <script src="../node_modules/d3/dist/d3.js"></script>
+  <script src="../dist/vsup.js"></script>
+</head>
+  <body>
+    <script>
+      d3.csv("flights.csv").then(function(data) {
+        data = data.map(function(d) {
+          return {
+            DayOfWeek: +d.DayOfWeek,
+            DepDelay: +d.DepDelay,
+            DepTimeBlk: d.DepTimeBlk,
+            StdMeanErr: +d.StdMeanErr
+          }
+        });
+
+        var vDom = d3.extent(data.map(function(d) { return d.DepDelay; }));
+        var uDom = d3.extent(data.map(function(d) { return d.StdMeanErr; }));
+
+        var quantization = vsup.quantization().branching(2).layers(4).valueDomain(vDom).uncertaintyDomain(uDom);
+        var scale = vsup.scale().quantize(quantization).range(d3.interpolateViridis);
+
+        var squareQuantization = vsup.squareQuantization().n(4).valueDomain(vDom).uncertaintyDomain(uDom);
+        var squareScale = vsup.scale().quantize(squareQuantization).range(d3.interpolateViridis);
+
+        var body = d3.select("body");
+        makeFlightExample(body.append("svg"), scale, data, "arc");
+        makeFlightExample(body.append("svg"), squareScale, data, "square");
+      });
+
+      function makeFlightExample(svg, scale, data, type) {
+        var w = 560;
+        var h = 240;
+
+        var x = d3.scaleBand().range([0, w]).domain(data.map(function(d) { return d.DepTimeBlk; }));
+        var y = d3.scaleBand().range([0, h]).domain(data.map(function(d) { return d.DayOfWeek; }));
+
+        // special scales for axes
+        var xAxis = d3.scalePoint().range([0, w]).domain([0, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]);
+        var yAxis = d3.scaleBand().range([0, h]).domain(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]);
+
+        var heatmap = svg.attr("width", w + 350).attr("height", h + 60).append("g")
+          .attr("transform", "translate(10,10)");
+
+        heatmap.selectAll("rect")
+          .data(data)
+          .enter()
+          .append("rect")
+          .attr("x", function(d) { return x(d.DepTimeBlk); })
+          .attr("y", function(d) { return y(d.DayOfWeek); })
+          .attr("width", x.bandwidth())
+          .attr("height", y.bandwidth())
+          .attr("title", JSON.stringify)
+          .attr("fill", function(d) { return scale(d.DepDelay, d.StdMeanErr); });
+
+        // axes
+        heatmap.append("g")
+          .attr("transform", "translate(0," + h + ")")
+          .call(d3.axisBottom(xAxis));
+
+        heatmap.append("text")
+          .style("text-anchor", "middle")
+          .style("font-size", 13)
+          .attr("transform", "translate(" + (w / 2) + ", " + (h + 40) + ")")
+          .text("Departure Time")
+
+        heatmap.append("g")
+          .attr("transform", "translate(" + w + ", 0)")
+          .call(d3.axisRight(yAxis));
+
+        heatmap.append("text")
+          .style("text-anchor", "middle")
+          .style("font-size", 13)
+          .attr("transform", "translate(" + (w + 80) + ", " + (h / 2) + ")rotate(90)")
+          .text("Day of the Week");
+
+        // legend
+        var legend = type === "arc" ? vsup.legend.arcmapLegend() : vsup.legend.heatmapLegend();
+
+        legend
+          .scale(scale)
+          .size(160)
+          .x(w + 140)
+          .y(60)
+          .vtitle("Departure Delay (minutes)")
+          .utitle("Standard Mean Error");
+
+        svg.append("g").call(legend)
+      }
+    </script>
+  </body>
+</html>
