@@ -1,9 +1,15 @@
-# vsup
+# Value-Suppressing Uncertainty Palettes (VSUPs)
 
 [![npm version](https://img.shields.io/npm/v/vsup.svg)](https://www.npmjs.com/package/vsup)
 [![Build Status](https://travis-ci.org/uwdata/vsup.svg?branch=master)](https://travis-ci.org/uwdata/vsup)
 
 Code for generating Value-Suppressing Uncertainty Palettes for use in D3 charts. You can find the [research paper about VSUPs on our website](http://idl.cs.washington.edu/papers/uncertainty-palettes).
+
+## Installation
+
+`yarn add vsup` or include the library directly from [jsdelivr](https://www.jsdelivr.com/package/npm/vsup) as [`https://cdn.jsdelivr.net/npm/vsup`](https://cdn.jsdelivr.net/npm/vsup).
+
+## Citation
 
 If you use this module for a publication, please cite VSUPs as:
 
