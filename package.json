@@ -2,9 +2,12 @@
     "name": "vsup",
     "version": "1.0.1",
     "description": "Value-Suppressing Uncertainty Palettes. A technique for creating bivariate scales for depicting uncertainty, using D3.",
-    "main": "dist/index.js",
+    "main": "build/vsup.js",
+    "unpkg": "build/vsup.min.js",
+    "jsdelivr": "build/vsup.min.js",
+    "module": "src/index",
     "scripts": {
-        "build": "rollup -c",
+        "build": "rollup -c && uglifyjs build/vsup.js -c negate_iife=false -m -o build/vsup.min.js",
         "watch": "rollup -c -w",
         "start": "python -m http.server",
         "lint": "eslint src",
@@ -16,7 +19,8 @@
     "devDependencies": {
         "eslint": "^4.19.1",
         "rollup": "^0.57.1",
-        "rollup-plugin-node-resolve": "^3.3.0"
+        "rollup-plugin-node-resolve": "^3.3.0",
+        "uglify-js": "^2.4.11"
     },
     "repository": {
         "type": "git",
