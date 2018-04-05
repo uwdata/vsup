@@ -6,7 +6,7 @@ Code for generating Value-Suppressing Uncertainty Palettes for use in D3 charts.
 
 If you use this module for a publication, please cite VSUPs as:
 
-```
+```bib
 @inproceedings{2018-uncertainty-palettes,
  title = {Value-Suppressing Uncertainty Palettes},
  author = {Michael Correll AND Dominik Moritz AND Jeffrey Heer},
