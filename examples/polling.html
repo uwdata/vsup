@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Polling example</title>
+  <meta charset="UTF-8">
+
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/topojson"></script>
+  <script src="../node_modules/d3/dist/d3.js"></script>
+  <script src="../dist/vsup.js"></script>
+</head>
+  <body>
+    <script>
+      d3.csv("polling.csv").then(function(data) {
+        var lead;
+        data = data.map(function(d) {
+          lead = d["Lead"]=="Tied" ? 0 : +d["Lead"];
+          return {
+            State: d["State"],
+            Hillary: parseFloat(d["Hillary Clinton"]),
+            Margin: parseFloat(d["Margin of error"]),
+            HillaryAhead: Math.sign(parseFloat(d["Hillary Clinton"]) - parseFloat(d["Donald Trump"])),
+            Lead: lead,
+            LeadRatio: lead / (d["Margin of error"]=="Tied" ? 0 : parseFloat(d["Margin of error"]))
+          }
+        });
+
+        var red = "rgb(172,32,47)";
+        var purple = "rgb(116,2,128)";
+      //  "rgb(209, 172, 210)";
+        var blue = "rgb(34,101,163)";
+
+        var interpolateIsoRdBu = d3.scaleLinear()
+        .domain([0,0.5,1])
+        .range([red,purple,blue])
+        .interpolate(d3.interpolateLab);
+
+        var maxLead = d3.max(data, function(d){ return d.Lead;});
+        var vDom = [-20,20];
+        var uDom = [8,0];//[d3.max(data, function(d){ return d.LeadRatio;}), 0];
+
+        var quantization = vsup.quantization().branching(2).layers(4).valueDomain(vDom).uncertaintyDomain(uDom);
+        var scale = vsup.scale().quantize(quantization).range(interpolateIsoRdBu);
+
+        var squareQuantization = vsup.squareQuantization().n(4).valueDomain(vDom).uncertaintyDomain(uDom);
+        var squareScale = vsup.scale().quantize(squareQuantization).range(interpolateIsoRdBu);
+
+        var body = d3.select("body");
+
+        makePollingExample(body.append("svg"),scale,data,"arc");
+        makePollingExample(body.append("svg"),squareScale,data,"square");
+      //  makeFlightExample(body.append("svg"), scale, data, "arc");
+      //  makeFlightExample(body.append("svg"), squareScale, data, "square");
+      });
+
+      function makePollingExample(svg,scale,data,type) {
+        var w = 900;
+        var h = 500;
+
+        svg
+          .attr("width",w+160)
+          .attr("height",h);
+
+        var projection = d3.geoAlbersUsa()
+          .translate([w/2,h/2])
+          .scale(Math.max(w,h));
+
+        var path = d3.geoPath()
+        .projection(projection);
+
+
+        //using the albersUSA json/code from from Mike B., https://bl.ocks.org/mbostock/2869946
+        d3.json("us.json").then(function(us) {
+          svg.append("g").selectAll("path").data(us.features)
+          .enter().append("path")
+          .datum(function(d){
+            var name = d.properties.name;
+            d.properties = data.find(function(state){ return state.State == name;});
+            if(!d.properties){
+              d.properties = {"State": name};
+            }
+            return d;})
+          .attr("d", path)
+          .attr("stroke", "white")
+          .attr("fill", function(d){ return d.properties.Lead===undefined ? "#aaa" : scale(d.properties.HillaryAhead * d.properties.Lead,d.properties.LeadRatio);})
+          .append("svg:title")
+          .text(function(d){ return d.properties.Lead + "," + d.properties.LeadRatio;});
+          });
+
+          // legend
+          var legend = type === "arc" ? vsup.legend.arcmapLegend() : vsup.legend.heatmapLegend();
+
+          legend
+            .scale(scale)
+            .size(160)
+            .x(w - 160)
+            .y(h-200)
+            .vtitle("Clinton Lead")
+            .utitle("Lead / Margin of Error");
+
+          svg.append("g").call(legend)
+      }
+    </script>
+  </body>
+</html>
