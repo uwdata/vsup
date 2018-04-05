@@ -3,4 +3,4 @@ export {treeQuantization as quantization, squareQuantization, linearQuantization
 export {simpleScale as scale} from "./scale";
 export {continuousSquare as csquare, continuousArc as carc, continuousLine as cline} from "./continuous";
 import * as legend_ from "./legend";
-export const legend = legend_;
+export var legend = legend_;
