@@ -5,6 +5,14 @@
 
 Code for generating Value-Suppressing Uncertainty Palettes for use in D3 charts. You can find the [research paper about VSUPs on our website](http://idl.cs.washington.edu/papers/uncertainty-palettes).
 
+## Examples
+
+These examples are served from the [`examples`](https://github.com/uwdata/vsup/tree/master/examples) directory.
+
+* Flights: https://uwdata.github.io/vsup/examples/flights.html
+* Polling: https://uwdata.github.io/vsup/examples/polling.html
+* Virology: https://uwdata.github.io/vsup/examples/virology.html
+
 ## Installation
 
 `yarn add vsup` or include the library directly from [jsdelivr](https://www.jsdelivr.com/package/npm/vsup) as [`https://cdn.jsdelivr.net/npm/vsup`](https://cdn.jsdelivr.net/npm/vsup).
