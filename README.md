@@ -30,3 +30,12 @@ If you use this module for a publication, please cite VSUPs as:
  url = {http://idl.cs.washington.edu/papers/uncertainty-palettes},
 }
 ```
+
+## Developers
+
+### Make a new release
+
+* Test the examples in `test`
+* `yarn version`
+* `np publish`
+* `git push --tags`
