@@ -10,20 +10,20 @@
             }
         </style>
         <script src="../node_modules/d3/build/d3.js"></script>
-        <script src="../dist/bvu.js"></script>
+        <script src="../dist/index.js"></script>
     </head>
     <body>
       <div id="vis"></div>
       <script>
         var el = d3.select("div");
 
-        var square = bvu.csquare(100,d3.interpolateViridis);
+        var square = vsup.csquare(100,d3.interpolateViridis);
         el.append("div").call(square);
 
-        var arc = bvu.carc(100,d3.interpolateViridis);
+        var arc = vsup.carc(100,d3.interpolateViridis);
         el.append("div").call(arc);
 
-        var line = bvu.cline(100,10,d3.interpolateViridis);
+        var line = vsup.cline(100,10,d3.interpolateViridis);
         el.append("div").call(line);
       </script>
     </body>

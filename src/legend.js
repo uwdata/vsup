@@ -189,11 +189,11 @@ export function heatmapLegend(m_scale, m_size, m_format, m_utitle, m_vtitle, m_x
       .attr("class", "legend")
       .attr("transform", "translate(" + x + "," + y + ")");
 
-    var uncertaintyDomain = scale.quantize().uncertaintyDomain();
+    var uncertaintyDomain = scale&&scale.quantize ? scale.quantize().uncertaintyDomain() : [0,1];
     var uStep = (uncertaintyDomain[1] - uncertaintyDomain[0]) / inverted.length;
     var uDom = d3.range(uncertaintyDomain[0], uncertaintyDomain[1] + uStep, uStep);
 
-    var valueDomain = scale.quantize().valueDomain();
+    var valueDomain = scale&&scale.quantize ? scale.quantize().valueDomain() : [0,1];
     var vStep = (valueDomain[1] - valueDomain[0]) / inverted.length;
     var vDom = d3.range(valueDomain[0], valueDomain[1] + vStep, vStep);
 
@@ -356,7 +356,7 @@ export function arcmapLegend(m_scale, m_size, m_format, m_utitle, m_vtitle, m_x,
       .attr("class", "legend")
       .attr("transform", "translate(" + x + "," + y + ")");
 
-    var uncertaintyDomain = scale.quantize().uncertaintyDomain();
+    var uncertaintyDomain = scale&&scale.quantize ? scale.quantize().uncertaintyDomain() : [0,1];
     var uStep = (uncertaintyDomain[1] - uncertaintyDomain[0]) / inverted.length;
     var uDom = d3.range(uncertaintyDomain[0], uncertaintyDomain[1] + uStep, uStep);
 
@@ -373,7 +373,7 @@ export function arcmapLegend(m_scale, m_size, m_format, m_utitle, m_vtitle, m_x,
       .attr("transform", "translate(" + (size + 10 * px) + "," + (40 * px + size / 2) + ")rotate(-60)")
       .text(utitle);
 
-    var valueDomain = scale.quantize().valueDomain();
+    var valueDomain = scale&&scale.quantize ? scale.quantize().valueDomain() : [0,1];
     var vStep = (valueDomain[1] - valueDomain[0]) / inverted[0].length;
     var vTicks = d3.range(valueDomain[0], valueDomain[1] + vStep, vStep);
 

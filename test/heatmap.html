@@ -10,15 +10,15 @@
             }
         </style>
         <script src="../node_modules/d3/build/d3.js"></script>
-        <script src="../dist/bvu.js"></script>
+        <script src="../dist/index.js"></script>
     </head>
     <body>
       <svg id="vis"></svg>
       <script>
         var svg = d3.select("svg");
         var data = [[0,0.1,0.2], [0.3,0.4,0.5], [0.6,0.7,0.8]];
-        
-        var hmap = bvu.heatmap()
+
+        var hmap = vsup.heatmap()
             .data(data)
             .scale(d3.interpolateViridis)
             .size(150);
@@ -26,7 +26,7 @@
         svg.append("g")
             .call(hmap);
 
-        var amap = bvu.arcmap()
+        var amap = vsup.arcmap()
             .data(data)
             .scale(d3.interpolateCool)
             .size(150)

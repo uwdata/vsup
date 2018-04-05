@@ -11,7 +11,7 @@
         </style>
 
         <script src="../node_modules/d3/build/d3.js"></script>
-        <script src="../dist/bvu.js"></script>
+        <script src="../dist/index.js"></script>
     </head>
     <body>
         <svg id="vis"></svg>
@@ -24,7 +24,7 @@
                 .domain([0, 1])
                 .range(d3.quantize(d3.interpolateViridis, 5));
 
-            var legend = bvu.legend.simpleLegend()
+            var legend = vsup.legend.simpleLegend()
                 .title("Simple Legend")
                 .size(250)
                 .height(20)
@@ -36,13 +36,13 @@
                 .append("g")
                 .call(legend)
 
-            var squareQuantization = bvu.squareQuantization().n(5).valueDomain([0, 39]).uncertaintyDomain([1.1, 4.8]);
-            var squareScale = bvu.scale().quantize(squareQuantization).range(d3.interpolateViridis);
+            var squareQuantization = vsup.squareQuantization().n(5).valueDomain([0, 39]).uncertaintyDomain([1.1, 4.8]);
+            var squareScale = vsup.scale().quantize(squareQuantization).range(d3.interpolateViridis);
 
-            var quantization = bvu.quantization().branching(2).layers(4).valueDomain([-10, 55]).uncertaintyDomain([1.1, 4.8]);
-            var scale = bvu.scale().quantize(quantization).range(d3.interpolateViridis);
+            var quantization = vsup.quantization().branching(2).layers(4).valueDomain([-10, 55]).uncertaintyDomain([1.1, 4.8]);
+            var scale = vsup.scale().quantize(quantization).range(d3.interpolateViridis);
 
-            var heatLegend = bvu.legend.heatmapLegend()
+            var heatLegend = vsup.legend.heatmapLegend()
                 .scale(squareScale)
                 .size(150)
                 .x(60)
@@ -52,7 +52,7 @@
                 .append("g")
                 .call(heatLegend);
 
-            var arcLegend = bvu.legend.arcmapLegend()
+            var arcLegend = vsup.legend.arcmapLegend()
                 .scale(scale)
                 .size(150)
                 .x(60)
