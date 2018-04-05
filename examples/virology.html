@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Virology example</title>
+  <meta charset="UTF-8">
+
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+  </style>
+  <script src="../node_modules/d3/dist/d3.js"></script>
+  <script src="../dist/vsup.js"></script>
+</head>
+  <body>
+    <script>
+      d3.csv("viral_binned.csv").then(function(data) {
+        data = data.map(function(d) {
+          return {
+            Individual: d.Individual,
+            Position: +d.Position,
+            Mutation: +d.Mutation,
+            BadReads: +d.BadReads
+          }
+        });
+
+        var colors = d3.interpolatePlasma;
+        // Other maps to test:
+        //
+        // interpolateViridis
+        // interpolateInferno
+        // interpolatePlasma
+        // interpolateWarm
+        // interpolateCool
+
+        var vDom = [0, 1.5];  // d3.extent(data.map(function(d) { return d.Mutation; }));
+        var uDom = [0, 7.5];  // d3.extent(data.map(function(d) { return d.BadReads; }));
+
+        var quantization = vsup.quantization().branching(2).layers(4).valueDomain(vDom).uncertaintyDomain(uDom);
+        var scale = vsup.scale().quantize(quantization).range(colors);
+
+        var squareQuantization = vsup.squareQuantization().n(4).valueDomain(vDom).uncertaintyDomain(uDom);
+        var squareScale = vsup.scale().quantize(squareQuantization).range(colors);
+
+        var body = d3.select('body');
+        makeVirologyExample(body.append("svg"), scale, data, "arc");
+        makeVirologyExample(body.append("svg"), squareScale, data, "square");
+      });
+
+      function makeVirologyExample(svg, scale, data, type) {
+        var w = 560;
+        var h = 240;
+
+        var x = d3.scaleBand().range([0, w]).domain(data.map(function(d) { return d.Position; }));
+        var y = d3.scaleBand().range([0, h]).domain(data.map(function(d) { return d.Individual; }));
+
+        var xAxis = d3.scaleLinear().range([0, w]).domain(d3.extent(data.map(function(d) { return d.Position; })));
+
+        var heatmap = svg.attr("width", w + 350).attr("height", h + 60).append("g")
+          .attr("transform", "translate(10,10)");
+
+        heatmap.selectAll("rect")
+          .data(data)
+          .enter()
+          .append("rect")
+          .attr("x", function(d) { return x(d.Position); })
+          .attr("y", function(d) { return y(d.Individual); })
+          .attr("width", x.bandwidth())
+          .attr("height", y.bandwidth())
+          .attr("title", JSON.stringify)
+          .attr("fill", function(d) { return scale(d.Mutation, d.BadReads); });
+
+        // axes
+        heatmap.append("g")
+          .attr("transform", "translate(0," + h + ")")
+          .call(d3.axisBottom(xAxis));
+
+        heatmap.append("text")
+          .style("text-anchor", "middle")
+          .style("font-size", 13)
+          .attr("transform", "translate(" + (w / 2) + ", " + (h + 40) + ")")
+          .text("Position Along Genome (Base Pair)")
+
+        heatmap.append("g")
+          .attr("transform", "translate(" + w + ", 0)")
+          .call(d3.axisRight(y));
+
+        heatmap.append("text")
+          .style("text-anchor", "middle")
+          .style("font-size", 13)
+          .attr("transform", "translate(" + (w + 80) + ", " + (h / 2) + ")rotate(90)")
+          .text("Individual");
+
+        // legend
+        var legend = type === "arc" ? vsup.legend.arcmapLegend() : vsup.legend.heatmapLegend();
+
+        legend
+          .scale(scale)
+          .size(160)
+          .x(w + 140)
+          .y(60)
+          .vtitle("Variant Reads (%)")
+          .utitle("Alignment Error Rate (%)");
+
+        svg.append("g").call(legend)
+      }
+    </script>
+  </body>
+</html>
