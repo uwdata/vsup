@@ -1,0 +1,18 @@
+parserOptions:
+    sourceType: "module"
+
+env:
+    browser: true
+    node: true
+
+extends:
+    "eslint:recommended"
+
+rules:
+    no-cond-assign: 0
+    no-fallthrough: ["error", { "commentPattern": "break omitted" }]
+    space-before-function-paren: ["error", "never"]
+    quotes: ["error", "double"]
+    comma-spacing: ["error", { "before": false, "after": true }]
+    keyword-spacing: "error"
+    space-infix-ops: 2
