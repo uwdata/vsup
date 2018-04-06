@@ -17,6 +17,10 @@ These examples are served from the [`examples`](https://github.com/uwdata/vsup/t
 
 `yarn add vsup` or include the library directly from [jsdelivr](https://www.jsdelivr.com/package/npm/vsup) as [`https://cdn.jsdelivr.net/npm/vsup`](https://cdn.jsdelivr.net/npm/vsup).
 
+## Usage
+
+Documentation forthcoming. 
+
 ## Citation
 
 If you use this module for a publication, please cite VSUPs as:
