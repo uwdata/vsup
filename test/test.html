@@ -19,6 +19,8 @@
         var svg = d3.select("svg").attr("width",1050).attr("height",525);
         var quantization = vsup.quantization().branching(2).layers(4);
         var scale = vsup.scale().quantize(quantization).range(d3.interpolateViridis);
+        var ulScale = vsup.scale().quantize(quantization).range(d3.interpolateViridis).mode("ul");
+        var usScale = vsup.scale().quantize(quantization).range(d3.interpolateViridis).mode("us");
         var iscale = vsup.scale().range(d3.interpolateViridis);
 
         var sQuantization = vsup.squareQuantization().n(4);
@@ -57,6 +59,10 @@
 
         var vsupH = vsup.heatmap().size(150).scale(scale).data(randomData).x(0).y(175).id("vsup");
         svg.append("g").call(vsupH);
+        var vsupHUS = vsup.heatmap().size(150).scale(usScale).data(randomData).x(0).y(175).id("vsupUS");
+        svg.append("g").call(vsupHUS);
+        var vsupHUL = vsup.heatmap().size(150).scale(ulScale).data(randomData).x(0).y(175).id("vsupUL");
+        svg.append("g").call(vsupHUL);
         var ssum = vsup.heatmap().size(150).scale(sScale).data(randomData).x(175).y(175).id("2d");
         svg.append("g").call(ssum);
         var isum = vsup.heatmap().size(150).scale(iscale).data(randomData).x(350).y(175).id("continuous");
