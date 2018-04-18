@@ -40,6 +40,19 @@ export function simpleScale(m_mode, m_range, m_quantization) {
       default:
         vcolor = d3.interpolateLab(vcolor, "#fff")(uScale(data.u));
       break;
+
+      case "us":
+        vcolor = d3.hsl(vcolor);
+        var sScale = d3.scaleLinear().domain([0, 1]).range([vcolor.s, 0]);
+        vcolor.s = sScale(uScale(data.u));
+      break;
+
+      case "ul":
+        vcolor = d3.hsl(vcolor);
+        var lScale = d3.scaleLinear().domain([0, 1]).range([vcolor.l, 1]);
+        vcolor.l = lScale(uScale(data.u));
+      break;
+
     }
     return vcolor;
   }
