@@ -35,26 +35,24 @@
         var blue = "rgb(34,101,163)";
 
         var interpolateIsoRdBu = d3.scaleLinear()
-        .domain([0,0.5,1])
-        .range([red,purple,blue])
-        .interpolate(d3.interpolateLab);
+          .domain([0,0.5,1])
+          .range([red,purple,blue])
+          .interpolate(d3.interpolateLab);
 
         var maxLead = d3.max(data, function(d){ return d.Lead;});
         var vDom = [-20,20];
         var uDom = [8,0];//[d3.max(data, function(d){ return d.LeadRatio;}), 0];
 
-        var quantization = vsup.quantization().branching(2).layers(4).valueDomain(vDom).uncertaintyDomain(uDom);
+        var quantization = vsup.quantization().branching(2).layers(3).valueDomain(vDom).uncertaintyDomain(uDom);
         var scale = vsup.scale().quantize(quantization).range(interpolateIsoRdBu);
 
-        var squareQuantization = vsup.squareQuantization().n(4).valueDomain(vDom).uncertaintyDomain(uDom);
+        var squareQuantization = vsup.squareQuantization().n(3).valueDomain(vDom).uncertaintyDomain(uDom);
         var squareScale = vsup.scale().quantize(squareQuantization).range(interpolateIsoRdBu);
 
         var body = d3.select("body");
 
-        makePollingExample(body.append("svg"),scale,data,"arc");
-        makePollingExample(body.append("svg"),squareScale,data,"square");
-      //  makeFlightExample(body.append("svg"), scale, data, "arc");
-      //  makeFlightExample(body.append("svg"), squareScale, data, "square");
+        makePollingExample(body.append("svg"), scale, data, "arc");
+        makePollingExample(body.append("svg"), squareScale, data, "square");
       });
 
       function makePollingExample(svg,scale,data,type) {
@@ -76,20 +74,23 @@
         //using the albersUSA json/code from from Mike B., https://bl.ocks.org/mbostock/2869946
         d3.json("us.json").then(function(us) {
           svg.append("g").selectAll("path").data(us.features)
-          .enter().append("path")
-          .datum(function(d){
-            var name = d.properties.name;
-            d.properties = data.find(function(state){ return state.State == name;});
-            if(!d.properties){
-              d.properties = {"State": name};
-            }
-            return d;})
-          .attr("d", path)
-          .attr("stroke", "white")
-          .attr("fill", function(d){ return d.properties.Lead===undefined ? "#aaa" : scale(d.properties.HillaryAhead * d.properties.Lead,d.properties.LeadRatio);})
-          .append("svg:title")
-          .text(function(d){ return d.properties.Lead + "," + d.properties.LeadRatio;});
-          });
+            .enter().append("path")
+            .datum(function(d){
+              var name = d.properties.name;
+              d.properties = data.find(function(state){ return state.State == name;});
+              if(!d.properties){
+                d.properties = {"State": name};
+              }
+              return d;})
+            .attr("d", path)
+            .attr("stroke", "white")
+            .attr("fill", function(d){
+              return d.properties.Lead===undefined ? "#aaa" : scale(d.properties.HillaryAhead * d.properties.Lead,d.properties.LeadRatio);
+            })
+            .append("svg:title")
+            .text(function(d){
+              return d.properties.Lead + "," + d.properties.LeadRatio;});
+            });
 
           // legend
           var legend = type === "arc" ? vsup.legend.arcmapLegend() : vsup.legend.heatmapLegend();
