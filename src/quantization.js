@@ -1,5 +1,7 @@
 import * as d3 from "d3";
 
+var epsilon = 1e-9;
+
 export function linearQuantization(m_n, m_range) {
   var n = m_n,
   range = m_range,
@@ -134,7 +136,7 @@ export function treeQuantization(branchingFactor, treeLayers) {
         i = 0;
 
     // find the right layer of the tree, based on uncertainty
-    while (i < tree.length - 1 && uscale(u) < 1 - ((i + 1) / layers)){
+    while (i < tree.length - 1 && uscale(u) < 1 - ((i + 1) / layers) - epsilon){
       i++;
     }
 
