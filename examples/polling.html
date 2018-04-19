@@ -43,10 +43,10 @@
         var vDom = [-20,20];
         var uDom = [8,0];//[d3.max(data, function(d){ return d.LeadRatio;}), 0];
 
-        var quantization = vsup.quantization().branching(2).layers(3).valueDomain(vDom).uncertaintyDomain(uDom);
+        var quantization = vsup.quantization().branching(2).layers(4).valueDomain(vDom).uncertaintyDomain(uDom);
         var scale = vsup.scale().quantize(quantization).range(interpolateIsoRdBu);
 
-        var squareQuantization = vsup.squareQuantization().n(3).valueDomain(vDom).uncertaintyDomain(uDom);
+        var squareQuantization = vsup.squareQuantization().n(4).valueDomain(vDom).uncertaintyDomain(uDom);
         var squareScale = vsup.scale().quantize(squareQuantization).range(interpolateIsoRdBu);
 
         var body = d3.select("body");
