@@ -19,7 +19,50 @@ These examples are served from the [`examples`](https://github.com/uwdata/vsup/t
 
 ## Usage
 
-Documentation forthcoming. 
+### Quantization
+
+A quantization defines how values or objects of the form `{u: number, v: number}` (uncertainty and value) are quantized. They are used instead of a domain in VSUP scales.
+
+This module supports three different quantizations: `linearQuantization`, `squareQuantization`, and `treeQuantization`. 
+
+#### `vsup.linearQuantization`
+
+This is a wrapper around [`d3.scaleQuantize`](https://github.com/d3/d3-scale#quantize-scales). 
+
+#### `vsup.squareQuantization`
+
+Defines a quantization into a rectangular matrix of value and uncertainty.
+
+The constructor takes a single argument `n`, the number of rows and columns.
+
+```js
+var q = vsup.squareQuantization(3);
+```
+
+`q` is then a function that can be used to discretize uncertainties and values. 
+
+```js
+> q(0.2,0.1);
+{u: 0, v: 0.16666666666666666}
+```
+
+The quantization has the following methods:
+
+**TODO**
+
+#### `vsup.treeQuantization`
+
+**TODO**
+
+### Scales
+
+The interface to create a scale mirrors [scales in D3](https://github.com/d3/d3-scale). The difference of VSUP scales is that they use a quantization instead of a domain. The range can be set to any color range.
+
+**TODO**
+
+### Legends
+
+**TODO**
 
 ## Citation
 

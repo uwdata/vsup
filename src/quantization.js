@@ -15,7 +15,6 @@ export function linearQuantization(m_n, m_range) {
     return scale(value);
   }
 
-
   quantization.range = function() {
     return scale.range();
   }
