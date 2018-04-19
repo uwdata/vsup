@@ -8,12 +8,12 @@ import {simpleHeatmap, simpleArcmap} from "./heatmap";
 export function simpleLegend(m_scale, m_size, m_height, m_format, m_title, m_x, m_y) {
   var el = null,
       title = m_title,
-      scale = m_scale ? m_scale : null,
-      size = m_size ? m_size : 200,
-      height = m_height ? m_height : 30,
+      scale = m_scale || null,
+      size = m_size || 200,
+      height = m_height || 30,
       fmat = m_format || null,
-      x = m_x ? m_x : 0,
-      y = m_y ? m_y : 0;
+      x = m_x || 0,
+      y = m_y || 0;
 
   function legend(nel) {
     el = nel;

@@ -4,8 +4,8 @@ import * as d3 from "d3";
 // a quantization function, and a color interpolator
 // can be extended to different modes (just saturation, say)
 export function simpleScale(m_mode, m_range, m_quantization) {
-  var range = m_range,
-      quantization = m_quantization ? m_quantization : function(v, u) {
+  var range = m_range || d3.interpolateViridis,
+      quantization = m_quantization || function(v, u) {
         var data = u != undefined ? {v:v, u:u} : {v:v.v, u:v.u};
         return data;
       },

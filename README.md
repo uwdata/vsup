@@ -48,17 +48,53 @@ var q = vsup.squareQuantization(3);
 
 The quantization has the following methods:
 
-**TODO**
+* `range`
+* `n`
+* `matrix`
+* `data`
+* `uncertaintyDomain`
+* `valueDomain`
 
 #### `vsup.treeQuantization`
 
-**TODO**
+Similar to `squareQuantization` but creates a tree quantization. The constructor takes two arguments `branchingFactor` and `treeLayers`. 
+
+The quantization has the following methods:
+
+* `range`
+* `branching`
+* `layers`
+* `tree`
+* `data`
+* `uncertaintyDomain`
+* `valueDomain`
 
 ### Scales
 
 The interface to create a scale mirrors [scales in D3](https://github.com/d3/d3-scale). The difference of VSUP scales is that they use a quantization instead of a domain. The range can be set to any color range.
 
-**TODO**
+The constructor takes three optional arguments: mode (`usl`, `us`, `ul`), range, and quantization. It returns a function that takes two arguments `value` and `uncertainty`.
+
+For example
+
+```js
+var s = vsup.scale();
+```
+
+`s` is now a function that takes two arguments
+
+```js
+> s(0.8, 0.1);
+"rgb(137, 214, 99)"
+```
+
+The scale has the following methods:
+
+* `range` to get or set the color range (e.g. `d3.interpolateViridis`)
+* `colorList`
+* `colorDists`
+* `mode`
+* `quantize`
 
 ### Legends
 

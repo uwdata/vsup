@@ -172,6 +172,10 @@ export function treeQuantization(branchingFactor, treeLayers) {
     return tree;
   }
 
+  quantization.range = function() {
+    return [].concat.apply([], tree);
+  }
+
   quantization.tree = function() {
     return tree;
   }
@@ -198,10 +202,6 @@ export function treeQuantization(branchingFactor, treeLayers) {
       tree = makeTree();
       return quantization;
     }
-  }
-
-  quantization.range = function() {
-    return [].concat.apply([], tree);
   }
 
   quantization.uncertaintyDomain = function(uDom) {
