@@ -5,16 +5,22 @@ import * as d3 from "d3";
 // can be extended to different modes (just saturation, say)
 export function simpleScale(m_mode, m_range, m_quantization) {
   var range = m_range || d3.interpolateViridis,
-      quantization = m_quantization || function(v, u) {
-        var data = u != undefined ? {v:v, u:u} : {v:v.v, u:v.u};
+    quantization =
+      m_quantization ||
+      function(v, u) {
+        var data = u != undefined ? { v: v, u: u } : { v: v.v, u: v.u };
         return data;
       },
-      mode = m_mode;
+    mode = m_mode;
 
   function CIEDist(color1, color2) {
-      var c1 = d3.lab(d3.color(color1)),
-          c2 = d3.lab(d3.color(color2));
-      return Math.sqrt(Math.pow( (c1.l - c2.l), 2) + Math.pow(c1.a - c2.a, 2) + Math.pow(c1.b - c2.b, 2));
+    var c1 = d3.lab(d3.color(color1)),
+      c2 = d3.lab(d3.color(color2));
+    return Math.sqrt(
+      Math.pow(c1.l - c2.l, 2) +
+        Math.pow(c1.a - c2.a, 2) +
+        Math.pow(c1.b - c2.b, 2)
+    );
   }
 
   function map(value, uncertainty) {
@@ -30,8 +36,14 @@ export function simpleScale(m_mode, m_range, m_quantization) {
       vDom = quantization.valueDomain();
     }
 
-    var uScale = d3.scaleLinear().domain(uDom).range([0, 1]);
-    var vScale = d3.scaleLinear().domain(vDom).range([0, 1]);
+    var uScale = d3
+      .scaleLinear()
+      .domain(uDom)
+      .range([0, 1]);
+    var vScale = d3
+      .scaleLinear()
+      .domain(vDom)
+      .range([0, 1]);
 
     var vcolor = range(vScale(data.v));
 
@@ -39,27 +51,36 @@ export function simpleScale(m_mode, m_range, m_quantization) {
       case "usl":
       default:
         vcolor = d3.interpolateLab(vcolor, "#fff")(uScale(data.u));
-      break;
+        break;
 
       case "us":
         vcolor = d3.hsl(vcolor);
-        var sScale = d3.scaleLinear().domain([0, 1]).range([vcolor.s, 0]);
+        var sScale = d3
+          .scaleLinear()
+          .domain([0, 1])
+          .range([vcolor.s, 0]);
         vcolor.s = sScale(uScale(data.u));
-      break;
+        break;
 
       case "ul":
         vcolor = d3.hsl(vcolor);
-        var lScale = d3.scaleLinear().domain([0, 1]).range([vcolor.l, 1]);
+        var lScale = d3
+          .scaleLinear()
+          .domain([0, 1])
+          .range([vcolor.l, 1]);
         vcolor.l = lScale(uScale(data.u));
-      break;
-
+        break;
     }
     return vcolor;
   }
 
   map.colorList = function() {
-    return (this.quantize().range()).map(function(d){ return map(d);});
-  }
+    return this.quantize()
+      .range()
+      .map(function(d) {
+        return map(d);
+      });
+  };
 
   map.colorDists = function() {
     var clist = this.colorList(),
@@ -68,12 +89,12 @@ export function simpleScale(m_mode, m_range, m_quantization) {
       minPair = new Array(2),
       dist;
 
-    for (var i = 0;i < matrix.length;i++) {
+    for (var i = 0; i < matrix.length; i++) {
       matrix[i] = new Array(clist.length);
-      for (var j = 0;j < matrix[i].length;j++) {
+      for (var j = 0; j < matrix[i].length; j++) {
         dist = CIEDist(clist[i], clist[j]);
         matrix[i][j] = dist;
-        if (i != j && ((i == 0 && j == 1) || (dist < minDist))) {
+        if (i != j && ((i == 0 && j == 1) || dist < minDist)) {
           minDist = dist;
           minPair = [clist[i], clist[j]];
         }
@@ -88,32 +109,29 @@ export function simpleScale(m_mode, m_range, m_quantization) {
   map.mode = function(newMode) {
     if (!arguments.length) {
       return mode;
-    }
-    else {
+    } else {
       mode = newMode;
       return map;
     }
-  }
+  };
 
   map.range = function(newRange) {
     if (!arguments.length) {
       return range;
-    }
-    else {
+    } else {
       range = newRange;
       return map;
     }
-  }
+  };
 
   map.quantize = function(newQuantization) {
     if (!arguments.length) {
       return quantization;
-    }
-    else {
+    } else {
       quantization = newQuantization;
       return map;
     }
-  }
+  };
 
   return map;
 }
