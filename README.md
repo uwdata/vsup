@@ -13,6 +13,20 @@ These examples are served from the [`examples`](https://github.com/uwdata/vsup/t
 * Polling: https://uwdata.github.io/vsup/examples/polling.html
 * Virology: https://uwdata.github.io/vsup/examples/virology.html
 
+## Citation
+
+If you use this module for a publication, please cite VSUPs as:
+
+```bib
+@inproceedings{2018-uncertainty-palettes,
+ title = {Value-Suppressing Uncertainty Palettes},
+ author = {Michael Correll AND Dominik Moritz AND Jeffrey Heer},
+ booktitle = {ACM Human Factors in Computing Systems (CHI)},
+ year = {2018},
+ url = {http://idl.cs.washington.edu/papers/uncertainty-palettes},
+}
+```
+
 ## Installation
 
 `yarn add vsup` or include the library directly from [jsdelivr](https://www.jsdelivr.com/package/npm/vsup) as [`https://cdn.jsdelivr.net/npm/vsup`](https://cdn.jsdelivr.net/npm/vsup).
@@ -127,19 +141,6 @@ A legend for a tree quantization.
 
 <p><img src="screenshots/legend_arc.png" width="300px"/></p>
 
-## Citation
-
-If you use this module for a publication, please cite VSUPs as:
-
-```bib
-@inproceedings{2018-uncertainty-palettes,
- title = {Value-Suppressing Uncertainty Palettes},
- author = {Michael Correll AND Dominik Moritz AND Jeffrey Heer},
- booktitle = {ACM Human Factors in Computing Systems (CHI)},
- year = {2018},
- url = {http://idl.cs.washington.edu/papers/uncertainty-palettes},
-}
-```
 
 ## Developers
 
@@ -147,5 +148,5 @@ If you use this module for a publication, please cite VSUPs as:
 
 * Test the examples in `test`
 * `yarn version`
-* `np publish`
+* `npm publish`
 * `git push --tags`
