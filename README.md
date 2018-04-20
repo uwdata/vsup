@@ -19,11 +19,11 @@ These examples are served from the [`examples`](https://github.com/uwdata/vsup/t
 
 ## Usage
 
-### Quantization
+### Quantization [<>](https://github.com/uwdata/vsup/blob/master/src/quantization.js)
 
 A quantization defines how values or objects of the form `{u: number, v: number}` (uncertainty and value) are quantized. They are used instead of a domain in VSUP scales.
 
-This module supports three different quantizations: `linearQuantization`, `squareQuantization`, and `treeQuantization`. 
+This module supports three different quantizations: `linearQuantization`, `squareQuantization`, and `quantization`. 
 
 #### `vsup.linearQuantization`
 
@@ -55,7 +55,7 @@ The quantization has the following methods:
 * `uncertaintyDomain`
 * `valueDomain`
 
-#### `vsup.treeQuantization`
+#### `vsup.quantization`
 
 Similar to `squareQuantization` but creates a tree quantization. The constructor takes two arguments `branchingFactor` and `treeLayers`. 
 
@@ -69,7 +69,7 @@ The quantization has the following methods:
 * `uncertaintyDomain`
 * `valueDomain`
 
-### Scales
+### Scales [<>](https://github.com/uwdata/vsup/blob/master/src/scale.js)
 
 The interface to create a scale mirrors [scales in D3](https://github.com/d3/d3-scale). The difference of VSUP scales is that they use a quantization instead of a domain. The range can be set to any color range.
 
@@ -96,9 +96,36 @@ The scale has the following methods:
 * `mode`
 * `quantize`
 
-### Legends
+### Legends [<>](https://github.com/uwdata/vsup/blob/master/src/legend.js)
 
-**TODO**
+This module implements three kinds of legends (`simpleLegend`, `heatmapLegend`, and `arcmapLegend`) corresponding to the three quantization types.
+
+To add a legend to the DOM, create a legend and attach it to an element. For example:
+
+```js
+var legend = vsup.legend().arcmapLegend();
+svg.append("g").call(legend)
+```
+
+You can find example code in [`test/legend.html`](https://github.com/uwdata/vsup/blob/master/test/legend.html).
+
+#### `vsup.legend.simpleLegend`
+
+A simple legend for linear quantizations.
+
+![screenshot](screenshots/legend_simple.png) {:width="200px"}
+
+#### `vsup.legend.heatmapLegend`
+
+A rectangular legend for tree quantization or square quantization.
+
+![screenshot](screenshots/legend_heat.png) {:width="200px"}
+
+#### `vsup.legend.arcmapLegend`
+
+A legend for a tree quantization.
+
+![screenshot](screenshots/legend_arc.png) {:width="200px"}
 
 ## Citation
 
