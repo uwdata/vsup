@@ -113,19 +113,19 @@ You can find example code in [`test/legend.html`](https://github.com/uwdata/vsup
 
 A simple legend for linear quantizations.
 
-<img src="screenshots/legend_simple.png width="200px">
+<p><img src="screenshots/legend_simple.png width="200px"/></p>
 
 #### `vsup.legend.heatmapLegend`
 
 A rectangular legend for tree quantization or square quantization.
 
-<img src="screenshots/legend_heat.png width="200px">
+<p><img src="screenshots/legend_heat.png width="200px"/></p>
 
 #### `vsup.legend.arcmapLegend`
 
 A legend for a tree quantization.
 
-<img src="screenshots/legend_arc.png width="200px">
+<p><img src="screenshots/legend_arc.png width="200px"/></p>
 
 ## Citation
 
