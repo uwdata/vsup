@@ -9,9 +9,9 @@ Code for generating Value-Suppressing Uncertainty Palettes for use in D3 charts.
 
 These examples are served from the [`examples`](https://github.com/uwdata/vsup/tree/master/examples) directory.
 
-* Flights: https://uwdata.github.io/vsup/examples/flights.html
-* Polling: https://uwdata.github.io/vsup/examples/polling.html
-* Virology: https://uwdata.github.io/vsup/examples/virology.html
+* [Flights](https://uwdata.github.io/vsup/examples/flights.html)
+* [Polling](https://uwdata.github.io/vsup/examples/polling.html)
+* [Virology](https://uwdata.github.io/vsup/examples/virology.html)
 
 ## Citation
 
