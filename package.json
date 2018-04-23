@@ -1,6 +1,6 @@
 {
     "name": "vsup",
-    "version": "1.0.2",
+    "version": "1.1.0",
     "description": "Value-Suppressing Uncertainty Palettes. A technique for creating bivariate scales for depicting uncertainty, using D3.",
     "main": "dist/vsup.js",
     "unpkg": "dist/vsup.min.js",
