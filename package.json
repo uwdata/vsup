@@ -19,9 +19,9 @@
     },
     "devDependencies": {
         "eslint": "^4.19.1",
-        "rollup": "^0.58.1",
+        "rollup": "^0.58.2",
         "rollup-plugin-node-resolve": "^3.3.0",
-        "uglify-js": "^3.3.21"
+        "uglify-js": "^3.3.22"
     },
     "repository": {
         "type": "git",
