@@ -31,6 +31,10 @@ If you use this module for a publication, please cite VSUPs as:
 
 `yarn add vsup` or include the library directly from [jsdelivr](https://www.jsdelivr.com/package/npm/vsup) as [`https://cdn.jsdelivr.net/npm/vsup`](https://cdn.jsdelivr.net/npm/vsup).
 
+```html
+<script src="https://cdn.jsdelivr.net/npm/vsup@latest"></script>
+```
+
 ## Usage
 
 ### Quantization [<>](https://github.com/uwdata/vsup/blob/master/src/quantization.js)
