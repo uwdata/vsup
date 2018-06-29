@@ -3,6 +3,10 @@
 [![npm version](https://img.shields.io/npm/v/vsup.svg)](https://www.npmjs.com/package/vsup)
 [![Build Status](https://travis-ci.org/uwdata/vsup.svg?branch=master)](https://travis-ci.org/uwdata/vsup)
 
+<a href="https://uwdata.github.io/vsup/examples/polling.html">
+  <img src="demo.png" width=600></img>
+</a>
+
 Code for generating Value-Suppressing Uncertainty Palettes for use in D3 charts. Read more about VSUPs in our [introductory blog post](https://medium.com/@uwdata/value-suppressing-uncertainty-palettes-426130122ce9) and our [research paper](http://idl.cs.washington.edu/papers/uncertainty-palettes).
 
 ## Examples
