@@ -4,18 +4,20 @@ import * as d3 from "d3";
 // a quantization function, and a color interpolator
 // can be extended to different modes (just saturation, say)
 export function simpleScale(m_mode, m_range, m_quantization) {
-  var range = m_range || d3.interpolateViridis,
-    quantization =
-      m_quantization ||
-      function(v, u) {
-        var data = u != undefined ? { v: v, u: u } : { v: v.v, u: v.u };
-        return data;
-      },
-    mode = m_mode;
+  var range = m_range || d3.interpolateViridis;
+
+  var quantization =
+    m_quantization ||
+    function(v, u) {
+      var data = u != undefined ? { v: v, u: u } : { v: v.v, u: v.u };
+      return data;
+    };
+
+  var mode = m_mode;
 
   function CIEDist(color1, color2) {
-    var c1 = d3.lab(d3.color(color1)),
-      c2 = d3.lab(d3.color(color2));
+    var c1 = d3.lab(d3.color(color1));
+    var c2 = d3.lab(d3.color(color2));
     return Math.sqrt(
       Math.pow(c1.l - c2.l, 2) +
         Math.pow(c1.a - c2.a, 2) +
@@ -83,11 +85,11 @@ export function simpleScale(m_mode, m_range, m_quantization) {
   };
 
   map.colorDists = function() {
-    var clist = this.colorList(),
-      matrix = new Array(clist.length),
-      minDist,
-      minPair = new Array(2),
-      dist;
+    var clist = this.colorList();
+    var matrix = new Array(clist.length);
+    var minDist;
+    var minPair = new Array(2);
+    var dist;
 
     for (var i = 0; i < matrix.length; i++) {
       matrix[i] = new Array(clist.length);

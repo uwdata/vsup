@@ -3,9 +3,9 @@ import * as d3 from "d3";
 var epsilon = 1e-9;
 
 export function linearQuantization(m_n, m_range) {
-  var n = m_n,
-    range = m_range,
-    scale = makeScale();
+  var n = m_n;
+  var range = m_range;
+  var scale = makeScale();
 
   function makeScale() {
     return d3.scaleQuantize().range(d3.quantize(range, n));
@@ -33,15 +33,15 @@ export function linearQuantization(m_n, m_range) {
 }
 
 export function squareQuantization(m_n) {
-  var n = m_n,
-    uscale = d3.scaleLinear(),
-    vscale = d3.scaleLinear(),
-    matrix = makeMatrix();
+  var n = m_n;
+  var uscale = d3.scaleLinear();
+  var vscale = d3.scaleLinear();
+  var matrix = makeMatrix();
 
   function quantization(value, uncertainty) {
-    var u = uncertainty != undefined ? uncertainty : value.u,
-      v = uncertainty != undefined ? value : value.v,
-      i = 0;
+    var u = uncertainty != undefined ? uncertainty : value.u;
+    var v = uncertainty != undefined ? value : value.v;
+    var i = 0;
 
     // find the right layer of the tree, based on uncertainty
     while (i < matrix.length - 1 && uscale(u) < 1 - (i + 1) / n) {
@@ -49,8 +49,9 @@ export function squareQuantization(m_n) {
     }
 
     // find right leaf of tree, based on value
-    var vgap = matrix[i].length > 1 ? (matrix[i][1].v - matrix[i][0].v) / 2 : 0,
-      j = 0;
+    var vgap = matrix[i].length > 1 ? (matrix[i][1].v - matrix[i][0].v) / 2 : 0;
+
+    var j = 0;
 
     while (j < matrix[i].length - 1 && v > matrix[i][j].v + vgap) {
       j++;
@@ -122,16 +123,16 @@ export function squareQuantization(m_n) {
 }
 
 export function treeQuantization(branchingFactor, treeLayers) {
-  var branch = branchingFactor || 2,
-    layers = treeLayers || 2,
-    uscale = d3.scaleLinear(),
-    vscale = d3.scaleLinear(),
-    tree = makeTree();
+  var branch = branchingFactor || 2;
+  var layers = treeLayers || 2;
+  var uscale = d3.scaleLinear();
+  var vscale = d3.scaleLinear();
+  var tree = makeTree();
 
   function quantization(value, uncertainty) {
-    var u = uncertainty != undefined ? uncertainty : value.u,
-      v = uncertainty != undefined ? value : value.v,
-      i = 0;
+    var u = uncertainty != undefined ? uncertainty : value.u;
+    var v = uncertainty != undefined ? value : value.v;
+    var i = 0;
 
     // find the right layer of the tree, based on uncertainty
     while (i < tree.length - 1 && uscale(u) < 1 - (i + 1) / layers - epsilon) {
@@ -139,8 +140,9 @@ export function treeQuantization(branchingFactor, treeLayers) {
     }
 
     // find right leaf of tree, based on value
-    var vgap = tree[i].length > 1 ? (tree[i][1].v - tree[i][0].v) / 2 : 0,
-      j = 0;
+    var vgap = tree[i].length > 1 ? (tree[i][1].v - tree[i][0].v) / 2 : 0;
+
+    var j = 0;
 
     while (j < tree[i].length - 1 && v > tree[i][j].v + vgap) {
       j++;
@@ -152,8 +154,9 @@ export function treeQuantization(branchingFactor, treeLayers) {
   function makeTree() {
     // Our tree should be "squarish" - it should have about
     // as many layers as leaves.
-    var tree = [],
-      n;
+    var tree = [];
+
+    var n;
 
     vscale.nice(Math.pow(branch, layers - 1));
     uscale.nice(layers);

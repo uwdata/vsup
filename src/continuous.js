@@ -1,12 +1,12 @@
 import * as d3 from "d3";
 
 export function continuousSquare(m_size, m_scale, m_id) {
-  var el = null,
-    size = m_size,
-    id = m_id,
-    scale = m_scale,
-    context,
-    canvas;
+  var el = null;
+  var size = m_size;
+  var id = m_id;
+  var scale = m_scale;
+  var context;
+  var canvas;
 
   function square(nel) {
     el = nel;
@@ -106,7 +106,11 @@ export function continuousArc(m_size, m_scale) {
 
   arc.makePixelData = function() {
     var pixelData = [];
-    var c, x, y, theta, r;
+    var c;
+    var x;
+    var y;
+    var theta;
+    var r;
     var angle = d3
       .scaleLinear()
       .domain([-Math.PI / 6, Math.PI / 6])

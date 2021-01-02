@@ -4,12 +4,12 @@ A lightweight factory for making d3 heatmaps.
 import * as d3 from "d3";
 
 export function simpleHeatmap(data, m_scale, m_size, m_id, m_x, m_y) {
-  var x = m_x ? m_x : 0,
-    y = m_y ? m_y : 0,
-    size = m_size ? m_size : 0,
-    scale = m_scale ? m_scale : function() { return "#fff"; },
-    id = m_id,
-    h;
+  var x = m_x ? m_x : 0;
+  var y = m_y ? m_y : 0;
+  var size = m_size ? m_size : 0;
+  var scale = m_scale ? m_scale : function() { return "#fff"; };
+  var id = m_id;
+  var h;
 
   function heatmap(nel) {
     heatmap.el = nel;
@@ -160,12 +160,12 @@ export function simpleArcmap(data, m_scale, m_size, m_id, m_x, m_y) {
   }
 
   arcmap.setProperties = function() {
-    var data = arcmap.data(),
-      size = arcmap.size(),
-      scale = arcmap.scale(),
-      id = arcmap.id(),
-      x = arcmap.x(),
-      y = arcmap.y();
+    var data = arcmap.data();
+    var size = arcmap.size();
+    var scale = arcmap.scale();
+    var id = arcmap.id();
+    var x = arcmap.x();
+    var y = arcmap.y();
 
     if (!arcmap.el) {
       return;
