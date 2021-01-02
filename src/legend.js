@@ -14,14 +14,14 @@ export function simpleLegend(
   m_x,
   m_y
 ) {
-  var el = null,
-    title = m_title,
-    scale = m_scale || null,
-    size = m_size || 200,
-    height = m_height || 30,
-    fmat = m_format || null,
-    x = m_x || 0,
-    y = m_y || 0;
+  var el = null;
+  var title = m_title;
+  var scale = m_scale || null;
+  var size = m_size || 200;
+  var height = m_height || 30;
+  var fmat = m_format || null;
+  var x = m_x || 0;
+  var y = m_y || 0;
 
   function legend(nel) {
     el = nel;
@@ -33,15 +33,16 @@ export function simpleLegend(
       return;
     }
 
-    var domain = scale.domain ? scale.domain() : [0, 1],
-      w = size / scale.range().length,
-      step = (domain[1] - domain[0]) / scale.range().length,
-      dom = d3.range(domain[0], domain[1] + step, step),
-      axisScale = d3
-        .scalePoint()
-        .range([0, size])
-        .domain(dom)
-        .round(true);
+    var domain = scale.domain ? scale.domain() : [0, 1];
+    var w = size / scale.range().length;
+    var step = (domain[1] - domain[0]) / scale.range().length;
+    var dom = d3.range(domain[0], domain[1] + step, step);
+
+    var axisScale = d3
+      .scalePoint()
+      .range([0, size])
+      .domain(dom)
+      .round(true);
 
     el
       .attr("class", "legend")
@@ -164,15 +165,15 @@ export function heatmapLegend(
   m_x,
   m_y
 ) {
-  var el = null,
-    utitle = m_utitle ? m_utitle : "Uncertainty",
-    vtitle = m_vtitle ? m_vtitle : "Value",
-    scale = m_scale ? m_scale : null,
-    size = m_size ? m_size : 200,
-    fmat = m_format || null,
-    x = m_x ? m_x : 0,
-    y = m_y ? m_y : 0,
-    data = null;
+  var el = null;
+  var utitle = m_utitle ? m_utitle : "Uncertainty";
+  var vtitle = m_vtitle ? m_vtitle : "Value";
+  var scale = m_scale ? m_scale : null;
+  var size = m_size ? m_size : 200;
+  var fmat = m_format || null;
+  var x = m_x ? m_x : 0;
+  var y = m_y ? m_y : 0;
+  var data = null;
 
   var heatmap = simpleHeatmap();
 
@@ -350,15 +351,15 @@ export function arcmapLegend(
   m_x,
   m_y
 ) {
-  var el = null,
-    utitle = m_utitle ? m_utitle : "Uncertainty",
-    vtitle = m_vtitle ? m_vtitle : "Value",
-    scale = m_scale ? m_scale : null,
-    size = m_size ? m_size : 200,
-    fmat = m_format || null,
-    x = m_x ? m_x : 0,
-    y = m_y ? m_y : 0,
-    data = null;
+  var el = null;
+  var utitle = m_utitle ? m_utitle : "Uncertainty";
+  var vtitle = m_vtitle ? m_vtitle : "Value";
+  var scale = m_scale ? m_scale : null;
+  var size = m_size ? m_size : 200;
+  var fmat = m_format || null;
+  var x = m_x ? m_x : 0;
+  var y = m_y ? m_y : 0;
+  var data = null;
 
   var arcmap = simpleArcmap();
 
