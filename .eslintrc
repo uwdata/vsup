@@ -7,12 +7,16 @@ env:
     node: true
 
 extends:
-    "eslint:recommended"
+    - "eslint:recommended"
+    - "prettier"
+
+plugins:
+    - prettier
 
 rules:
+    "prettier/prettier": "error"
     no-cond-assign: 0
     no-fallthrough: ["error", { "commentPattern": "break omitted" }]
-    space-before-function-paren: ["error", "never"]
     quotes: ["error", "double"]
     comma-spacing: ["error", { "before": false, "after": true }]
     keyword-spacing: "error"
