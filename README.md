@@ -1,7 +1,7 @@
 # Value-Suppressing Uncertainty Palettes (VSUPs)
 
 [![npm version](https://img.shields.io/npm/v/vsup.svg)](https://www.npmjs.com/package/vsup)
-[![Build Status](https://travis-ci.org/uwdata/vsup.svg?branch=master)](https://travis-ci.org/uwdata/vsup)
+![Node](https://github.com/uwdata/vsup/workflows/Node/badge.svg)
 
 <a href="https://uwdata.github.io/vsup/examples/polling.html">
   <img src="demo.png" width=600></img>
