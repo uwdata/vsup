@@ -46,7 +46,7 @@ export function simpleLegend(
 
     el
       .attr("class", "legend")
-      .attr("transform", "translate(" + x + "," + y + ")");
+      .attr("transform", `translate(${x},${y})`);
 
     var rect = el.selectAll("rect").data(scale.range());
 
@@ -65,7 +65,7 @@ export function simpleLegend(
       axis = el.append("g");
     }
     axis
-      .attr("transform", "translate(0, " + height + ")")
+      .attr("transform", `translate(0, ${height})`)
       .call(d3.axisBottom(axisScale).tickFormat(d3.format(fmat || "")));
 
     var label = el.select("g.legend > text");
@@ -75,7 +75,7 @@ export function simpleLegend(
     label
       .style("text-anchor", "middle")
       .style("font-size", 13)
-      .attr("transform", "translate(" + size / 2 + ", " + (height + 30) + ")")
+      .attr("transform", `translate(${size / 2}, ${height + 30})`)
       .text(title);
   };
 
@@ -202,7 +202,7 @@ export function heatmapLegend(
 
     el
       .attr("class", "legend")
-      .attr("transform", "translate(" + x + "," + y + ")");
+      .attr("transform", `translate(${x},${y})`);
 
     var uncertaintyDomain =
       scale && scale.quantize ? scale.quantize().uncertaintyDomain() : [0, 1];
@@ -231,7 +231,7 @@ export function heatmapLegend(
       .append("text")
       .style("text-anchor", "middle")
       .style("font-size", 13)
-      .attr("transform", "translate(" + size / 2 + ", " + -25 + ")")
+      .attr("transform", `translate(${size / 2}, ${-25})`)
       .text(vtitle);
 
     var yAxis = d3
@@ -241,7 +241,7 @@ export function heatmapLegend(
 
     el
       .append("g")
-      .attr("transform", "translate(" + size + ", 0)")
+      .attr("transform", `translate(${size}, 0)`)
       .call(d3.axisRight(yAxis).tickFormat(d3.format(fmat || "")));
 
     el
@@ -250,7 +250,7 @@ export function heatmapLegend(
       .style("font-size", 13)
       .attr(
         "transform",
-        "translate(" + (size + 40) + ", " + size / 2 + ")rotate(90)"
+        `translate(${size + 40}, ${size / 2})rotate(90)`
       )
       .text(utitle);
   };
@@ -387,7 +387,7 @@ export function arcmapLegend(
 
     el
       .attr("class", "legend")
-      .attr("transform", "translate(" + x + "," + y + ")");
+      .attr("transform", `translate(${x},${y})`);
 
     var uncertaintyDomain =
       scale && scale.quantize ? scale.quantize().uncertaintyDomain() : [0, 1];
@@ -408,7 +408,7 @@ export function arcmapLegend(
       .append("g")
       .attr(
         "transform",
-        "translate(" + (size + 6 * px) + "," + 28 * px + ")rotate(30)"
+        `translate(${size + 6 * px},${28 * px})rotate(30)`
       )
       .call(d3.axisRight(uAxisScale).tickFormat(d3.format(fmat || "")));
 
@@ -455,7 +455,7 @@ export function arcmapLegend(
 
     var arcAxis = el
       .append("g")
-      .attr("transform", "translate(" + size / 2 + "," + (size - offset) + ")");
+      .attr("transform", `translate(${size / 2},${size - offset})`);
 
     arcAxis
       .append("path")
