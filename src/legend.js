@@ -54,15 +54,11 @@ export function simpleLegend(
       .enter()
       .append("rect")
       .merge(rect)
-      .attr("x", function(d, i) {
-        return i * w;
-      })
+      .attr("x", (d, i) => i * w)
       .attr("y", 0)
       .attr("height", height)
       .attr("width", w)
-      .attr("fill", function(d) {
-        return d;
-      });
+      .attr("fill", d => d);
 
     var axis = el.select("g.legend > g");
     if (axis.empty()) {
@@ -473,17 +469,13 @@ export function arcmapLegend(
       .enter()
       .append("g")
       .attr("class", "arc-label")
-      .attr("transform", function(d) {
-        return (
-          "rotate(" +
-          angle(d) +
-          ")translate(" +
-          0 +
-          "," +
-          (-size - offset) +
-          ")"
-        );
-      });
+      .attr("transform", d => "rotate(" +
+    angle(d) +
+    ")translate(" +
+    0 +
+    "," +
+    (-size - offset) +
+    ")");
 
     labelEnter
       .append("text")
