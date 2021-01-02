@@ -15,9 +15,7 @@ export function linearQuantization(m_n, m_range) {
     return scale(value);
   }
 
-  quantization.range = function() {
-    return scale.range();
-  };
+  quantization.range = () => scale.range();
 
   quantization.n = function(newN) {
     if (!arguments.length) {
@@ -79,9 +77,7 @@ export function squareQuantization(m_n) {
     return matrix;
   }
 
-  quantization.range = function() {
-    return [].concat.apply([], matrix);
-  };
+  quantization.range = () => [].concat.apply([], matrix);
 
   quantization.n = function(newN) {
     if (!arguments.length) {
@@ -93,9 +89,7 @@ export function squareQuantization(m_n) {
     }
   };
 
-  quantization.matrix = function() {
-    return matrix;
-  };
+  quantization.matrix = () => matrix;
 
   quantization.data = quantization.matrix;
 
@@ -180,13 +174,9 @@ export function treeQuantization(branchingFactor, treeLayers) {
     return tree;
   }
 
-  quantization.range = function() {
-    return [].concat.apply([], tree);
-  };
+  quantization.range = () => [].concat.apply([], tree);
 
-  quantization.tree = function() {
-    return tree;
-  };
+  quantization.tree = () => tree;
 
   quantization.data = quantization.tree;
 

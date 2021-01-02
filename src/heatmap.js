@@ -7,7 +7,7 @@ export function simpleHeatmap(data, m_scale, m_size, m_id, m_x, m_y) {
   let x = m_x ? m_x : 0;
   let y = m_y ? m_y : 0;
   let size = m_size ? m_size : 0;
-  let scale = m_scale ? m_scale : function() { return "#fff"; };
+  let scale = m_scale ? m_scale : () => "#fff";
   let id = m_id;
   let h;
 
@@ -25,7 +25,7 @@ export function simpleHeatmap(data, m_scale, m_size, m_id, m_x, m_y) {
       heatmap.svgGroup = heatmap.el.append("g");
     }
 
-    heatmap.svgGroup.attr("transform", "translate(" + x + "," + y + ")");
+    heatmap.svgGroup.attr("transform", `translate(${x},${y})`);
 
     heatmap.svgGroup
       .selectAll("g")
@@ -33,11 +33,10 @@ export function simpleHeatmap(data, m_scale, m_size, m_id, m_x, m_y) {
       .enter()
       .append("g")
       .selectAll("rect")
-      .data(function(d, i) {
-        return d.map(function(val) {
-          return { r: i, v: val };
-        });
-      })
+      .data((d, i) => d.map(val => ({
+      r: i,
+      v: val
+    })))
       .enter()
       .append("rect")
       .datum(function(d, i) {
@@ -48,19 +47,11 @@ export function simpleHeatmap(data, m_scale, m_size, m_id, m_x, m_y) {
     heatmap.svgGroup
       .selectAll("g")
       .selectAll("rect")
-      .attr("x", function(d) {
-        return size / data[d.r].length * d.c;
-      })
-      .attr("y", function(d) {
-        return d.r * h;
-      })
-      .attr("width", function(d) {
-        return size / data[d.r].length;
-      })
+      .attr("x", d => size / data[d.r].length * d.c)
+      .attr("y", d => d.r * h)
+      .attr("width", d => size / data[d.r].length)
       .attr("height", h)
-      .attr("fill", function(d) {
-        return scale(d.v);
-      });
+      .attr("fill", d => scale(d.v));
 
     if (id) {
       heatmap.svgGroup.attr("id", id);
@@ -175,7 +166,7 @@ export function simpleArcmap(data, m_scale, m_size, m_id, m_x, m_y) {
       arcmap.svgGroup = arcmap.el.append("g");
     }
 
-    arcmap.svgGroup.attr("transform", "translate(" + x + "," + y + ")");
+    arcmap.svgGroup.attr("transform", `translate(${x},${y})`);
 
     arcmap.svgGroup
       .selectAll("g")
@@ -183,11 +174,10 @@ export function simpleArcmap(data, m_scale, m_size, m_id, m_x, m_y) {
       .enter()
       .append("g")
       .selectAll("path")
-      .data(function(d, i) {
-        return d.map(function(val) {
-          return { r: i, v: val };
-        });
-      })
+      .data((d, i) => d.map(val => ({
+      r: i,
+      v: val
+    })))
       .enter()
       .append("path")
       .datum(function(d, i) {
@@ -198,13 +188,9 @@ export function simpleArcmap(data, m_scale, m_size, m_id, m_x, m_y) {
     arcmap.svgGroup
       .selectAll("g")
       .selectAll("path")
-      .attr("transform", "translate(" + size / 2.0 + "," + size + ")")
-      .attr("d", function(d) {
-        return makeArc(d, size, data.length, data[d.r].length);
-      })
-      .attr("fill", function(d) {
-        return scale(d.v);
-      });
+      .attr("transform", `translate(${size / 2.0},${size})`)
+      .attr("d", d => makeArc(d, size, data.length, data[d.r].length))
+      .attr("fill", d => scale(d.v));
 
     if (id) {
       arcmap.svgGroup.attr("id", id);

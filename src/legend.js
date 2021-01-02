@@ -46,7 +46,7 @@ export function simpleLegend(
 
     el
       .attr("class", "legend")
-      .attr("transform", "translate(" + x + "," + y + ")");
+      .attr("transform", `translate(${x},${y})`);
 
     const rect = el.selectAll("rect").data(scale.range());
 
@@ -54,22 +54,18 @@ export function simpleLegend(
       .enter()
       .append("rect")
       .merge(rect)
-      .attr("x", function(d, i) {
-        return i * w;
-      })
+      .attr("x", (d, i) => i * w)
       .attr("y", 0)
       .attr("height", height)
       .attr("width", w)
-      .attr("fill", function(d) {
-        return d;
-      });
+      .attr("fill", d => d);
 
     let axis = el.select("g.legend > g");
     if (axis.empty()) {
       axis = el.append("g");
     }
     axis
-      .attr("transform", "translate(0, " + height + ")")
+      .attr("transform", `translate(0, ${height})`)
       .call(d3.axisBottom(axisScale).tickFormat(d3.format(fmat || "")));
 
     let label = el.select("g.legend > text");
@@ -79,7 +75,7 @@ export function simpleLegend(
     label
       .style("text-anchor", "middle")
       .style("font-size", 13)
-      .attr("transform", "translate(" + size / 2 + ", " + (height + 30) + ")")
+      .attr("transform", `translate(${size / 2}, ${height + 30})`)
       .text(title);
   };
 
@@ -206,7 +202,7 @@ export function heatmapLegend(
 
     el
       .attr("class", "legend")
-      .attr("transform", "translate(" + x + "," + y + ")");
+      .attr("transform", `translate(${x},${y})`);
 
     var uncertaintyDomain =
       scale && scale.quantize ? scale.quantize().uncertaintyDomain() : [0, 1];
@@ -235,7 +231,7 @@ export function heatmapLegend(
       .append("text")
       .style("text-anchor", "middle")
       .style("font-size", 13)
-      .attr("transform", "translate(" + size / 2 + ", " + -25 + ")")
+      .attr("transform", `translate(${size / 2}, ${-25})`)
       .text(vtitle);
 
     const yAxis = d3
@@ -245,7 +241,7 @@ export function heatmapLegend(
 
     el
       .append("g")
-      .attr("transform", "translate(" + size + ", 0)")
+      .attr("transform", `translate(${size}, 0)`)
       .call(d3.axisRight(yAxis).tickFormat(d3.format(fmat || "")));
 
     el
@@ -254,7 +250,7 @@ export function heatmapLegend(
       .style("font-size", 13)
       .attr(
         "transform",
-        "translate(" + (size + 40) + ", " + size / 2 + ")rotate(90)"
+        `translate(${size + 40}, ${size / 2})rotate(90)`
       )
       .text(utitle);
   };
@@ -391,7 +387,7 @@ export function arcmapLegend(
 
     el
       .attr("class", "legend")
-      .attr("transform", "translate(" + x + "," + y + ")");
+      .attr("transform", `translate(${x},${y})`);
 
     var uncertaintyDomain =
       scale && scale.quantize ? scale.quantize().uncertaintyDomain() : [0, 1];
@@ -412,7 +408,7 @@ export function arcmapLegend(
       .append("g")
       .attr(
         "transform",
-        "translate(" + (size + 6 * px) + "," + 28 * px + ")rotate(30)"
+        `translate(${size + 6 * px},${28 * px})rotate(30)`
       )
       .call(d3.axisRight(uAxisScale).tickFormat(d3.format(fmat || "")));
 
@@ -459,7 +455,7 @@ export function arcmapLegend(
 
     const arcAxis = el
       .append("g")
-      .attr("transform", "translate(" + size / 2 + "," + (size - offset) + ")");
+      .attr("transform", `translate(${size / 2},${size - offset})`);
 
     arcAxis
       .append("path")
@@ -473,17 +469,13 @@ export function arcmapLegend(
       .enter()
       .append("g")
       .attr("class", "arc-label")
-      .attr("transform", function(d) {
-        return (
-          "rotate(" +
-          angle(d) +
-          ")translate(" +
-          0 +
-          "," +
-          (-size - offset) +
-          ")"
-        );
-      });
+      .attr("transform", d => "rotate(" +
+    angle(d) +
+    ")translate(" +
+    0 +
+    "," +
+    (-size - offset) +
+    ")");
 
     labelEnter
       .append("text")
