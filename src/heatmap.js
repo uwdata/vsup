@@ -25,7 +25,7 @@ export function simpleHeatmap(data, m_scale, m_size, m_id, m_x, m_y) {
       heatmap.svgGroup = heatmap.el.append("g");
     }
 
-    heatmap.svgGroup.attr("transform", "translate(" + x + "," + y + ")");
+    heatmap.svgGroup.attr("transform", `translate(${x},${y})`);
 
     heatmap.svgGroup
       .selectAll("g")
@@ -175,7 +175,7 @@ export function simpleArcmap(data, m_scale, m_size, m_id, m_x, m_y) {
       arcmap.svgGroup = arcmap.el.append("g");
     }
 
-    arcmap.svgGroup.attr("transform", "translate(" + x + "," + y + ")");
+    arcmap.svgGroup.attr("transform", `translate(${x},${y})`);
 
     arcmap.svgGroup
       .selectAll("g")
@@ -198,7 +198,7 @@ export function simpleArcmap(data, m_scale, m_size, m_id, m_x, m_y) {
     arcmap.svgGroup
       .selectAll("g")
       .selectAll("path")
-      .attr("transform", "translate(" + size / 2.0 + "," + size + ")")
+      .attr("transform", `translate(${size / 2.0},${size})`)
       .attr("d", function(d) {
         return makeArc(d, size, data.length, data[d.r].length);
       })
