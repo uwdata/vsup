@@ -13,7 +13,7 @@ export function continuousSquare(m_size, m_scale, m_id) {
     square.make();
   }
 
-  square.makePixelData = function() {
+  square.makePixelData = function () {
     const pixelData = [];
     let c;
     for (let i = 0; i < size; i++) {
@@ -31,7 +31,7 @@ export function continuousSquare(m_size, m_scale, m_id) {
     return pixelData;
   };
 
-  square.make = function() {
+  square.make = function () {
     if (!el) {
       return;
     }
@@ -52,13 +52,13 @@ export function continuousSquare(m_size, m_scale, m_id) {
     square.setPixels();
   };
 
-  square.setPixels = function() {
+  square.setPixels = function () {
     const img = context.createImageData(size, size);
     img.data.set(square.makePixelData());
     context.putImageData(img, 0, 0);
   };
 
-  square.size = function(newSize) {
+  square.size = function (newSize) {
     if (!arguments.length) {
       return size;
     } else {
@@ -72,7 +72,7 @@ export function continuousSquare(m_size, m_scale, m_id) {
     }
   };
 
-  square.scale = function(newScale) {
+  square.scale = function (newScale) {
     if (!arguments.length) {
       return scale;
     } else {
@@ -86,7 +86,7 @@ export function continuousSquare(m_size, m_scale, m_id) {
     }
   };
 
-  square.id = function(newId) {
+  square.id = function (newId) {
     if (!arguments.length) {
       return id;
     } else {
@@ -104,7 +104,7 @@ export function continuousSquare(m_size, m_scale, m_id) {
 export function continuousArc(m_size, m_scale) {
   const arc = continuousSquare(m_size, m_scale);
 
-  arc.makePixelData = function() {
+  arc.makePixelData = function () {
     const pixelData = [];
     let c;
     let x;
@@ -150,7 +150,7 @@ export function continuousLine(m_length, m_width, m_scale) {
   const width = m_width;
   const length = m_length;
 
-  line.makePixelData = function() {
+  line.makePixelData = function () {
     const pixelData = [];
     let c;
     for (let i = 0; i < length; i++) {

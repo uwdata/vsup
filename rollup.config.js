@@ -3,11 +3,9 @@ import resolve from "@rollup/plugin-node-resolve";
 export default {
   input: "src/index.js",
   output: {
-    file: "dist/vsup.js", 
+    file: "dist/vsup.js",
     format: "umd",
-    name: "vsup"
+    name: "vsup",
   },
-  plugins: [
-    resolve()
-  ]
+  plugins: [resolve()],
 };

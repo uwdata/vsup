@@ -16,7 +16,7 @@ export function simpleHeatmap(data, m_scale, m_size, m_id, m_x, m_y) {
     heatmap.setProperties();
   }
 
-  heatmap.setProperties = function() {
+  heatmap.setProperties = function () {
     if (!this.el) {
       return;
     }
@@ -33,13 +33,15 @@ export function simpleHeatmap(data, m_scale, m_size, m_id, m_x, m_y) {
       .enter()
       .append("g")
       .selectAll("rect")
-      .data((d, i) => d.map(val => ({
-      r: i,
-      v: val
-    })))
+      .data((d, i) =>
+        d.map((val) => ({
+          r: i,
+          v: val,
+        }))
+      )
       .enter()
       .append("rect")
-      .datum(function(d, i) {
+      .datum(function (d, i) {
         d.c = i;
         return d;
       });
@@ -47,18 +49,18 @@ export function simpleHeatmap(data, m_scale, m_size, m_id, m_x, m_y) {
     heatmap.svgGroup
       .selectAll("g")
       .selectAll("rect")
-      .attr("x", d => size / data[d.r].length * d.c)
-      .attr("y", d => d.r * h)
-      .attr("width", d => size / data[d.r].length)
+      .attr("x", (d) => (size / data[d.r].length) * d.c)
+      .attr("y", (d) => d.r * h)
+      .attr("width", (d) => size / data[d.r].length)
       .attr("height", h)
-      .attr("fill", d => scale(d.v));
+      .attr("fill", (d) => scale(d.v));
 
     if (id) {
       heatmap.svgGroup.attr("id", id);
     }
   };
 
-  heatmap.data = function(newData) {
+  heatmap.data = function (newData) {
     if (!arguments.length) {
       return data;
     } else {
@@ -69,7 +71,7 @@ export function simpleHeatmap(data, m_scale, m_size, m_id, m_x, m_y) {
     }
   };
 
-  heatmap.x = function(newX) {
+  heatmap.x = function (newX) {
     if (!arguments.length) {
       return x;
     } else {
@@ -79,7 +81,7 @@ export function simpleHeatmap(data, m_scale, m_size, m_id, m_x, m_y) {
     }
   };
 
-  heatmap.y = function(newY) {
+  heatmap.y = function (newY) {
     if (!arguments.length) {
       return y;
     } else {
@@ -89,7 +91,7 @@ export function simpleHeatmap(data, m_scale, m_size, m_id, m_x, m_y) {
     }
   };
 
-  heatmap.size = function(newSize) {
+  heatmap.size = function (newSize) {
     if (!arguments.length) {
       return size;
     } else {
@@ -102,7 +104,7 @@ export function simpleHeatmap(data, m_scale, m_size, m_id, m_x, m_y) {
     }
   };
 
-  heatmap.scale = function(newScale) {
+  heatmap.scale = function (newScale) {
     if (!arguments.length) {
       return scale;
     } else {
@@ -114,7 +116,7 @@ export function simpleHeatmap(data, m_scale, m_size, m_id, m_x, m_y) {
     }
   };
 
-  heatmap.id = function(newId) {
+  heatmap.id = function (newId) {
     if (!arguments.length) {
       return id;
     } else {
@@ -135,10 +137,7 @@ export function simpleArcmap(data, m_scale, m_size, m_id, m_x, m_y) {
       .scaleLinear()
       .domain([0, cols])
       .range([-Math.PI / 6, Math.PI / 6]);
-    const radius = d3
-      .scaleLinear()
-      .domain([0, rows])
-      .range([size, 0]);
+    const radius = d3.scaleLinear().domain([0, rows]).range([size, 0]);
 
     const arcPath = d3
       .arc()
@@ -150,7 +149,7 @@ export function simpleArcmap(data, m_scale, m_size, m_id, m_x, m_y) {
     return arcPath();
   }
 
-  arcmap.setProperties = function() {
+  arcmap.setProperties = function () {
     var data = arcmap.data();
     var size = arcmap.size();
     var scale = arcmap.scale();
@@ -174,13 +173,15 @@ export function simpleArcmap(data, m_scale, m_size, m_id, m_x, m_y) {
       .enter()
       .append("g")
       .selectAll("path")
-      .data((d, i) => d.map(val => ({
-      r: i,
-      v: val
-    })))
+      .data((d, i) =>
+        d.map((val) => ({
+          r: i,
+          v: val,
+        }))
+      )
       .enter()
       .append("path")
-      .datum(function(d, i) {
+      .datum(function (d, i) {
         d.c = i;
         return d;
       });
@@ -189,8 +190,8 @@ export function simpleArcmap(data, m_scale, m_size, m_id, m_x, m_y) {
       .selectAll("g")
       .selectAll("path")
       .attr("transform", `translate(${size / 2.0},${size})`)
-      .attr("d", d => makeArc(d, size, data.length, data[d.r].length))
-      .attr("fill", d => scale(d.v));
+      .attr("d", (d) => makeArc(d, size, data.length, data[d.r].length))
+      .attr("fill", (d) => scale(d.v));
 
     if (id) {
       arcmap.svgGroup.attr("id", id);

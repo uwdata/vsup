@@ -17,7 +17,7 @@ export function linearQuantization(m_n, m_range) {
 
   quantization.range = () => scale.range();
 
-  quantization.n = function(newN) {
+  quantization.n = function (newN) {
     if (!arguments.length) {
       return n;
     } else {
@@ -47,7 +47,8 @@ export function squareQuantization(m_n) {
     }
 
     // find right leaf of tree, based on value
-    const vgap = matrix[i].length > 1 ? (matrix[i][1].v - matrix[i][0].v) / 2 : 0;
+    const vgap =
+      matrix[i].length > 1 ? (matrix[i][1].v - matrix[i][0].v) / 2 : 0;
 
     let j = 0;
 
@@ -69,7 +70,7 @@ export function squareQuantization(m_n) {
       for (let j = 1; j < 2 * n; j += 2) {
         matrix[i].push({
           u: uscale.invert(1 - (i + 1) / n),
-          v: vscale.invert(j / (2 * n))
+          v: vscale.invert(j / (2 * n)),
         });
       }
     }
@@ -79,7 +80,7 @@ export function squareQuantization(m_n) {
 
   quantization.range = () => [].concat.apply([], matrix);
 
-  quantization.n = function(newN) {
+  quantization.n = function (newN) {
     if (!arguments.length) {
       return n;
     } else {
@@ -93,7 +94,7 @@ export function squareQuantization(m_n) {
 
   quantization.data = quantization.matrix;
 
-  quantization.uncertaintyDomain = function(newDomain) {
+  quantization.uncertaintyDomain = function (newDomain) {
     if (!arguments.length) {
       return uscale.domain();
     } else {
@@ -103,7 +104,7 @@ export function squareQuantization(m_n) {
     }
   };
 
-  quantization.valueDomain = function(newDomain) {
+  quantization.valueDomain = function (newDomain) {
     if (!arguments.length) {
       return vscale.domain();
     } else {
@@ -158,7 +159,7 @@ export function treeQuantization(branchingFactor, treeLayers) {
     tree[0] = [];
     tree[0].push({
       u: uscale.invert((layers - 1) / layers),
-      v: vscale.invert(0.5)
+      v: vscale.invert(0.5),
     });
 
     for (let i = 1; i < layers; i++) {
@@ -167,7 +168,7 @@ export function treeQuantization(branchingFactor, treeLayers) {
       for (let j = 1; j < n; j += 2) {
         tree[i].push({
           u: uscale.invert(1 - (i + 1) / layers),
-          v: vscale.invert(j / n)
+          v: vscale.invert(j / n),
         });
       }
     }
@@ -180,7 +181,7 @@ export function treeQuantization(branchingFactor, treeLayers) {
 
   quantization.data = quantization.tree;
 
-  quantization.branching = function(newbranch) {
+  quantization.branching = function (newbranch) {
     if (!arguments.length) {
       return branch;
     } else {
@@ -190,7 +191,7 @@ export function treeQuantization(branchingFactor, treeLayers) {
     }
   };
 
-  quantization.layers = function(newlayers) {
+  quantization.layers = function (newlayers) {
     if (!arguments.length) {
       return layers;
     } else {
@@ -200,7 +201,7 @@ export function treeQuantization(branchingFactor, treeLayers) {
     }
   };
 
-  quantization.uncertaintyDomain = function(uDom) {
+  quantization.uncertaintyDomain = function (uDom) {
     if (!arguments.length) {
       return uscale.domain();
     } else {
@@ -210,7 +211,7 @@ export function treeQuantization(branchingFactor, treeLayers) {
     }
   };
 
-  quantization.valueDomain = function(vDom) {
+  quantization.valueDomain = function (vDom) {
     if (!arguments.length) {
       return vscale.domain();
     } else {

@@ -8,7 +8,7 @@ export function simpleScale(m_mode, m_range, m_quantization) {
 
   let quantization =
     m_quantization ||
-    function(v, u) {
+    function (v, u) {
       const data = u != undefined ? { v: v, u: u } : { v: v.v, u: v.u };
       return data;
     };
@@ -38,14 +38,8 @@ export function simpleScale(m_mode, m_range, m_quantization) {
       vDom = quantization.valueDomain();
     }
 
-    const uScale = d3
-      .scaleLinear()
-      .domain(uDom)
-      .range([0, 1]);
-    const vScale = d3
-      .scaleLinear()
-      .domain(vDom)
-      .range([0, 1]);
+    const uScale = d3.scaleLinear().domain(uDom).range([0, 1]);
+    const vScale = d3.scaleLinear().domain(vDom).range([0, 1]);
 
     let vcolor = range(vScale(data.v));
 
@@ -56,19 +50,13 @@ export function simpleScale(m_mode, m_range, m_quantization) {
         break;
       case "us": {
         vcolor = d3.hsl(vcolor);
-        const sScale = d3
-          .scaleLinear()
-          .domain([0, 1])
-          .range([vcolor.s, 0]);
+        const sScale = d3.scaleLinear().domain([0, 1]).range([vcolor.s, 0]);
         vcolor.s = sScale(uScale(data.u));
         break;
       }
       case "ul": {
         vcolor = d3.hsl(vcolor);
-        const lScale = d3
-          .scaleLinear()
-          .domain([0, 1])
-          .range([vcolor.l, 1]);
+        const lScale = d3.scaleLinear().domain([0, 1]).range([vcolor.l, 1]);
         vcolor.l = lScale(uScale(data.u));
         break;
       }
@@ -76,13 +64,13 @@ export function simpleScale(m_mode, m_range, m_quantization) {
     return vcolor;
   }
 
-  map.colorList = function() {
+  map.colorList = function () {
     return this.quantize()
       .range()
-      .map(d => map(d));
+      .map((d) => map(d));
   };
 
-  map.colorDists = function() {
+  map.colorDists = function () {
     const clist = this.colorList();
     const matrix = new Array(clist.length);
     let minDist;
@@ -106,7 +94,7 @@ export function simpleScale(m_mode, m_range, m_quantization) {
     return matrix;
   };
 
-  map.mode = function(newMode) {
+  map.mode = function (newMode) {
     if (!arguments.length) {
       return mode;
     } else {
@@ -115,7 +103,7 @@ export function simpleScale(m_mode, m_range, m_quantization) {
     }
   };
 
-  map.range = function(newRange) {
+  map.range = function (newRange) {
     if (!arguments.length) {
       return range;
     } else {
@@ -124,7 +112,7 @@ export function simpleScale(m_mode, m_range, m_quantization) {
     }
   };
 
-  map.quantize = function(newQuantization) {
+  map.quantize = function (newQuantization) {
     if (!arguments.length) {
       return quantization;
     } else {

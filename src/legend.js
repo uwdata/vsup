@@ -28,7 +28,7 @@ export function simpleLegend(
     legend.setProperties();
   }
 
-  legend.setProperties = function() {
+  legend.setProperties = function () {
     if (!el) {
       return;
     }
@@ -38,15 +38,9 @@ export function simpleLegend(
     const step = (domain[1] - domain[0]) / scale.range().length;
     const dom = d3.range(domain[0], domain[1] + step, step);
 
-    const axisScale = d3
-      .scalePoint()
-      .range([0, size])
-      .domain(dom)
-      .round(true);
+    const axisScale = d3.scalePoint().range([0, size]).domain(dom).round(true);
 
-    el
-      .attr("class", "legend")
-      .attr("transform", `translate(${x},${y})`);
+    el.attr("class", "legend").attr("transform", `translate(${x},${y})`);
 
     const rect = el.selectAll("rect").data(scale.range());
 
@@ -58,7 +52,7 @@ export function simpleLegend(
       .attr("y", 0)
       .attr("height", height)
       .attr("width", w)
-      .attr("fill", d => d);
+      .attr("fill", (d) => d);
 
     let axis = el.select("g.legend > g");
     if (axis.empty()) {
@@ -79,7 +73,7 @@ export function simpleLegend(
       .text(title);
   };
 
-  legend.title = function(t) {
+  legend.title = function (t) {
     if (!arguments.length) {
       return title;
     } else {
@@ -89,7 +83,7 @@ export function simpleLegend(
     }
   };
 
-  legend.scale = function(s) {
+  legend.scale = function (s) {
     if (!arguments.length) {
       return scale;
     } else {
@@ -99,7 +93,7 @@ export function simpleLegend(
     }
   };
 
-  legend.size = function(s) {
+  legend.size = function (s) {
     if (!arguments.length) {
       return size;
     } else {
@@ -109,7 +103,7 @@ export function simpleLegend(
     }
   };
 
-  legend.height = function(h) {
+  legend.height = function (h) {
     if (!arguments.length) {
       return height;
     } else {
@@ -119,7 +113,7 @@ export function simpleLegend(
     }
   };
 
-  legend.format = function(f) {
+  legend.format = function (f) {
     if (!arguments.length) {
       return fmat;
     } else {
@@ -129,7 +123,7 @@ export function simpleLegend(
     }
   };
 
-  legend.x = function(nx) {
+  legend.x = function (nx) {
     if (!arguments.length) {
       return x;
     } else {
@@ -139,7 +133,7 @@ export function simpleLegend(
     }
   };
 
-  legend.y = function(ny) {
+  legend.y = function (ny) {
     if (!arguments.length) {
       return y;
     } else {
@@ -173,14 +167,14 @@ export function heatmapLegend(
 
   const heatmap = simpleHeatmap();
 
-  var legend = function(nel) {
+  var legend = function (nel) {
     el = nel;
     legend.setProperties();
 
     el.call(heatmap);
   };
 
-  legend.setProperties = function() {
+  legend.setProperties = function () {
     if (!el) {
       return;
     }
@@ -200,13 +194,12 @@ export function heatmapLegend(
     heatmap.scale(scale);
     heatmap.size(size);
 
-    el
-      .attr("class", "legend")
-      .attr("transform", `translate(${x},${y})`);
+    el.attr("class", "legend").attr("transform", `translate(${x},${y})`);
 
     var uncertaintyDomain =
       scale && scale.quantize ? scale.quantize().uncertaintyDomain() : [0, 1];
-    const uStep = (uncertaintyDomain[1] - uncertaintyDomain[0]) / inverted.length;
+    const uStep =
+      (uncertaintyDomain[1] - uncertaintyDomain[0]) / inverted.length;
     const uDom = d3.range(
       uncertaintyDomain[0],
       uncertaintyDomain[1] + uStep,
@@ -218,44 +211,32 @@ export function heatmapLegend(
     const vStep = (valueDomain[1] - valueDomain[0]) / inverted.length;
     const vDom = d3.range(valueDomain[0], valueDomain[1] + vStep, vStep);
 
-    const xAxisScale = d3
-      .scalePoint()
-      .range([0, size])
-      .domain(vDom);
+    const xAxisScale = d3.scalePoint().range([0, size]).domain(vDom);
 
-    el
-      .append("g")
-      .call(d3.axisTop(xAxisScale).tickFormat(d3.format(fmat || "")));
+    el.append("g").call(
+      d3.axisTop(xAxisScale).tickFormat(d3.format(fmat || ""))
+    );
 
-    el
-      .append("text")
+    el.append("text")
       .style("text-anchor", "middle")
       .style("font-size", 13)
       .attr("transform", `translate(${size / 2}, ${-25})`)
       .text(vtitle);
 
-    const yAxis = d3
-      .scalePoint()
-      .range([0, size])
-      .domain(uDom);
+    const yAxis = d3.scalePoint().range([0, size]).domain(uDom);
 
-    el
-      .append("g")
+    el.append("g")
       .attr("transform", `translate(${size}, 0)`)
       .call(d3.axisRight(yAxis).tickFormat(d3.format(fmat || "")));
 
-    el
-      .append("text")
+    el.append("text")
       .style("text-anchor", "middle")
       .style("font-size", 13)
-      .attr(
-        "transform",
-        `translate(${size + 40}, ${size / 2})rotate(90)`
-      )
+      .attr("transform", `translate(${size + 40}, ${size / 2})rotate(90)`)
       .text(utitle);
   };
 
-  legend.data = function(newData) {
+  legend.data = function (newData) {
     if (!arguments.length) {
       return data;
     } else {
@@ -265,7 +246,7 @@ export function heatmapLegend(
     }
   };
 
-  legend.scale = function(s) {
+  legend.scale = function (s) {
     if (!arguments.length) {
       return scale;
     } else {
@@ -275,7 +256,7 @@ export function heatmapLegend(
     }
   };
 
-  legend.size = function(s) {
+  legend.size = function (s) {
     if (!arguments.length) {
       return size;
     } else {
@@ -285,7 +266,7 @@ export function heatmapLegend(
     }
   };
 
-  legend.format = function(f) {
+  legend.format = function (f) {
     if (!arguments.length) {
       return fmat;
     } else {
@@ -295,7 +276,7 @@ export function heatmapLegend(
     }
   };
 
-  legend.x = function(nx) {
+  legend.x = function (nx) {
     if (!arguments.length) {
       return x;
     } else {
@@ -305,7 +286,7 @@ export function heatmapLegend(
     }
   };
 
-  legend.y = function(ny) {
+  legend.y = function (ny) {
     if (!arguments.length) {
       return y;
     } else {
@@ -315,7 +296,7 @@ export function heatmapLegend(
     }
   };
 
-  legend.utitle = function(t) {
+  legend.utitle = function (t) {
     if (!arguments.length) {
       return utitle;
     } else {
@@ -325,7 +306,7 @@ export function heatmapLegend(
     }
   };
 
-  legend.vtitle = function(t) {
+  legend.vtitle = function (t) {
     if (!arguments.length) {
       return vtitle;
     } else {
@@ -359,14 +340,14 @@ export function arcmapLegend(
 
   const arcmap = simpleArcmap();
 
-  var legend = function(nel) {
+  var legend = function (nel) {
     el = nel;
     legend.setProperties();
 
     el.call(arcmap);
   };
 
-  legend.setProperties = function() {
+  legend.setProperties = function () {
     if (!el) {
       return;
     }
@@ -385,35 +366,26 @@ export function arcmapLegend(
     arcmap.scale(scale);
     arcmap.size(size);
 
-    el
-      .attr("class", "legend")
-      .attr("transform", `translate(${x},${y})`);
+    el.attr("class", "legend").attr("transform", `translate(${x},${y})`);
 
     var uncertaintyDomain =
       scale && scale.quantize ? scale.quantize().uncertaintyDomain() : [0, 1];
-    const uStep = (uncertaintyDomain[1] - uncertaintyDomain[0]) / inverted.length;
+    const uStep =
+      (uncertaintyDomain[1] - uncertaintyDomain[0]) / inverted.length;
     const uDom = d3.range(
       uncertaintyDomain[0],
       uncertaintyDomain[1] + uStep,
       uStep
     );
 
-    const uAxisScale = d3
-      .scalePoint()
-      .range([0, size])
-      .domain(uDom);
+    const uAxisScale = d3.scalePoint().range([0, size]).domain(uDom);
 
     const px = size / 180;
-    el
-      .append("g")
-      .attr(
-        "transform",
-        `translate(${size + 6 * px},${28 * px})rotate(30)`
-      )
+    el.append("g")
+      .attr("transform", `translate(${size + 6 * px},${28 * px})rotate(30)`)
       .call(d3.axisRight(uAxisScale).tickFormat(d3.format(fmat || "")));
 
-    el
-      .append("text")
+    el.append("text")
       .style("text-anchor", "middle")
       .style("font-size", 13)
       .attr(
@@ -431,18 +403,12 @@ export function arcmapLegend(
     const vStep = (valueDomain[1] - valueDomain[0]) / inverted[0].length;
     const vTicks = d3.range(valueDomain[0], valueDomain[1] + vStep, vStep);
 
-    const vAxisScale = d3
-      .scaleLinear()
-      .range([0, size])
-      .domain(valueDomain);
+    const vAxisScale = d3.scaleLinear().range([0, size]).domain(valueDomain);
     const valueFormat = fmat
       ? d3.format(fmat)
       : vAxisScale.tickFormat(vTicks.length);
 
-    const angle = d3
-      .scaleLinear()
-      .domain(valueDomain)
-      .range([-30, 30]);
+    const angle = d3.scaleLinear().domain(valueDomain).range([-30, 30]);
 
     const offset = 3 * px;
 
@@ -469,13 +435,17 @@ export function arcmapLegend(
       .enter()
       .append("g")
       .attr("class", "arc-label")
-      .attr("transform", d => "rotate(" +
-    angle(d) +
-    ")translate(" +
-    0 +
-    "," +
-    (-size - offset) +
-    ")");
+      .attr(
+        "transform",
+        (d) =>
+          "rotate(" +
+          angle(d) +
+          ")translate(" +
+          0 +
+          "," +
+          (-size - offset) +
+          ")"
+      );
 
     labelEnter
       .append("text")
@@ -492,8 +462,7 @@ export function arcmapLegend(
       .attr("y2", 0)
       .attr("stroke", "#000");
 
-    el
-      .append("text")
+    el.append("text")
       .style("text-anchor", "middle")
       .style("font-size", 13)
       .attr("x", size / 2)
@@ -501,7 +470,7 @@ export function arcmapLegend(
       .text(vtitle);
   };
 
-  legend.data = function(newData) {
+  legend.data = function (newData) {
     if (!arguments.length) {
       return data;
     } else {
@@ -511,7 +480,7 @@ export function arcmapLegend(
     }
   };
 
-  legend.scale = function(s) {
+  legend.scale = function (s) {
     if (!arguments.length) {
       return scale;
     } else {
@@ -521,7 +490,7 @@ export function arcmapLegend(
     }
   };
 
-  legend.size = function(s) {
+  legend.size = function (s) {
     if (!arguments.length) {
       return size;
     } else {
@@ -531,7 +500,7 @@ export function arcmapLegend(
     }
   };
 
-  legend.format = function(f) {
+  legend.format = function (f) {
     if (!arguments.length) {
       return fmat;
     } else {
@@ -541,7 +510,7 @@ export function arcmapLegend(
     }
   };
 
-  legend.x = function(nx) {
+  legend.x = function (nx) {
     if (!arguments.length) {
       return x;
     } else {
@@ -551,7 +520,7 @@ export function arcmapLegend(
     }
   };
 
-  legend.y = function(ny) {
+  legend.y = function (ny) {
     if (!arguments.length) {
       return y;
     } else {
@@ -561,7 +530,7 @@ export function arcmapLegend(
     }
   };
 
-  legend.utitle = function(t) {
+  legend.utitle = function (t) {
     if (!arguments.length) {
       return utitle;
     } else {
@@ -571,7 +540,7 @@ export function arcmapLegend(
     }
   };
 
-  legend.vtitle = function(t) {
+  legend.vtitle = function (t) {
     if (!arguments.length) {
       return vtitle;
     } else {
