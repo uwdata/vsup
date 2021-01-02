@@ -14,14 +14,14 @@ export function simpleLegend(
   m_x,
   m_y
 ) {
-  var el = null;
-  var title = m_title;
-  var scale = m_scale || null;
-  var size = m_size || 200;
-  var height = m_height || 30;
-  var fmat = m_format || null;
-  var x = m_x || 0;
-  var y = m_y || 0;
+  let el = null;
+  let title = m_title;
+  let scale = m_scale || null;
+  let size = m_size || 200;
+  let height = m_height || 30;
+  let fmat = m_format || null;
+  let x = m_x || 0;
+  let y = m_y || 0;
 
   function legend(nel) {
     el = nel;
@@ -34,11 +34,11 @@ export function simpleLegend(
     }
 
     var domain = scale.domain ? scale.domain() : [0, 1];
-    var w = size / scale.range().length;
-    var step = (domain[1] - domain[0]) / scale.range().length;
-    var dom = d3.range(domain[0], domain[1] + step, step);
+    const w = size / scale.range().length;
+    const step = (domain[1] - domain[0]) / scale.range().length;
+    const dom = d3.range(domain[0], domain[1] + step, step);
 
-    var axisScale = d3
+    const axisScale = d3
       .scalePoint()
       .range([0, size])
       .domain(dom)
@@ -48,7 +48,7 @@ export function simpleLegend(
       .attr("class", "legend")
       .attr("transform", "translate(" + x + "," + y + ")");
 
-    var rect = el.selectAll("rect").data(scale.range());
+    const rect = el.selectAll("rect").data(scale.range());
 
     rect
       .enter()
@@ -64,7 +64,7 @@ export function simpleLegend(
         return d;
       });
 
-    var axis = el.select("g.legend > g");
+    let axis = el.select("g.legend > g");
     if (axis.empty()) {
       axis = el.append("g");
     }
@@ -72,7 +72,7 @@ export function simpleLegend(
       .attr("transform", "translate(0, " + height + ")")
       .call(d3.axisBottom(axisScale).tickFormat(d3.format(fmat || "")));
 
-    var label = el.select("g.legend > text");
+    let label = el.select("g.legend > text");
     if (label.empty()) {
       label = el.append("text");
     }
@@ -165,17 +165,17 @@ export function heatmapLegend(
   m_x,
   m_y
 ) {
-  var el = null;
-  var utitle = m_utitle ? m_utitle : "Uncertainty";
-  var vtitle = m_vtitle ? m_vtitle : "Value";
-  var scale = m_scale ? m_scale : null;
-  var size = m_size ? m_size : 200;
-  var fmat = m_format || null;
-  var x = m_x ? m_x : 0;
-  var y = m_y ? m_y : 0;
-  var data = null;
+  let el = null;
+  let utitle = m_utitle ? m_utitle : "Uncertainty";
+  let vtitle = m_vtitle ? m_vtitle : "Value";
+  let scale = m_scale ? m_scale : null;
+  let size = m_size ? m_size : 200;
+  let fmat = m_format || null;
+  let x = m_x ? m_x : 0;
+  let y = m_y ? m_y : 0;
+  let data = null;
 
-  var heatmap = simpleHeatmap();
+  const heatmap = simpleHeatmap();
 
   var legend = function(nel) {
     el = nel;
@@ -189,13 +189,13 @@ export function heatmapLegend(
       return;
     }
 
-    var tmp = data;
+    let tmp = data;
     if (!tmp) {
       tmp = scale.quantize().data();
     }
 
-    var inverted = [];
-    for (var i = 0; i < tmp.length; i++) {
+    const inverted = [];
+    for (let i = 0; i < tmp.length; i++) {
       inverted[i] = tmp[tmp.length - i - 1];
     }
 
@@ -210,8 +210,8 @@ export function heatmapLegend(
 
     var uncertaintyDomain =
       scale && scale.quantize ? scale.quantize().uncertaintyDomain() : [0, 1];
-    var uStep = (uncertaintyDomain[1] - uncertaintyDomain[0]) / inverted.length;
-    var uDom = d3.range(
+    const uStep = (uncertaintyDomain[1] - uncertaintyDomain[0]) / inverted.length;
+    const uDom = d3.range(
       uncertaintyDomain[0],
       uncertaintyDomain[1] + uStep,
       uStep
@@ -219,10 +219,10 @@ export function heatmapLegend(
 
     var valueDomain =
       scale && scale.quantize ? scale.quantize().valueDomain() : [0, 1];
-    var vStep = (valueDomain[1] - valueDomain[0]) / inverted.length;
-    var vDom = d3.range(valueDomain[0], valueDomain[1] + vStep, vStep);
+    const vStep = (valueDomain[1] - valueDomain[0]) / inverted.length;
+    const vDom = d3.range(valueDomain[0], valueDomain[1] + vStep, vStep);
 
-    var xAxisScale = d3
+    const xAxisScale = d3
       .scalePoint()
       .range([0, size])
       .domain(vDom);
@@ -238,7 +238,7 @@ export function heatmapLegend(
       .attr("transform", "translate(" + size / 2 + ", " + -25 + ")")
       .text(vtitle);
 
-    var yAxis = d3
+    const yAxis = d3
       .scalePoint()
       .range([0, size])
       .domain(uDom);
@@ -351,17 +351,17 @@ export function arcmapLegend(
   m_x,
   m_y
 ) {
-  var el = null;
-  var utitle = m_utitle ? m_utitle : "Uncertainty";
-  var vtitle = m_vtitle ? m_vtitle : "Value";
-  var scale = m_scale ? m_scale : null;
-  var size = m_size ? m_size : 200;
-  var fmat = m_format || null;
-  var x = m_x ? m_x : 0;
-  var y = m_y ? m_y : 0;
-  var data = null;
+  let el = null;
+  let utitle = m_utitle ? m_utitle : "Uncertainty";
+  let vtitle = m_vtitle ? m_vtitle : "Value";
+  let scale = m_scale ? m_scale : null;
+  let size = m_size ? m_size : 200;
+  let fmat = m_format || null;
+  let x = m_x ? m_x : 0;
+  let y = m_y ? m_y : 0;
+  let data = null;
 
-  var arcmap = simpleArcmap();
+  const arcmap = simpleArcmap();
 
   var legend = function(nel) {
     el = nel;
@@ -375,13 +375,13 @@ export function arcmapLegend(
       return;
     }
 
-    var tmp = data;
+    let tmp = data;
     if (!tmp) {
       tmp = scale.quantize().data();
     }
 
-    var inverted = [];
-    for (var i = 0; i < tmp.length; i++) {
+    const inverted = [];
+    for (let i = 0; i < tmp.length; i++) {
       inverted[i] = tmp[tmp.length - i - 1];
     }
 
@@ -395,19 +395,19 @@ export function arcmapLegend(
 
     var uncertaintyDomain =
       scale && scale.quantize ? scale.quantize().uncertaintyDomain() : [0, 1];
-    var uStep = (uncertaintyDomain[1] - uncertaintyDomain[0]) / inverted.length;
-    var uDom = d3.range(
+    const uStep = (uncertaintyDomain[1] - uncertaintyDomain[0]) / inverted.length;
+    const uDom = d3.range(
       uncertaintyDomain[0],
       uncertaintyDomain[1] + uStep,
       uStep
     );
 
-    var uAxisScale = d3
+    const uAxisScale = d3
       .scalePoint()
       .range([0, size])
       .domain(uDom);
 
-    var px = size / 180;
+    const px = size / 180;
     el
       .append("g")
       .attr(
@@ -432,32 +432,32 @@ export function arcmapLegend(
 
     var valueDomain =
       scale && scale.quantize ? scale.quantize().valueDomain() : [0, 1];
-    var vStep = (valueDomain[1] - valueDomain[0]) / inverted[0].length;
-    var vTicks = d3.range(valueDomain[0], valueDomain[1] + vStep, vStep);
+    const vStep = (valueDomain[1] - valueDomain[0]) / inverted[0].length;
+    const vTicks = d3.range(valueDomain[0], valueDomain[1] + vStep, vStep);
 
-    var vAxisScale = d3
+    const vAxisScale = d3
       .scaleLinear()
       .range([0, size])
       .domain(valueDomain);
-    var valueFormat = fmat
+    const valueFormat = fmat
       ? d3.format(fmat)
       : vAxisScale.tickFormat(vTicks.length);
 
-    var angle = d3
+    const angle = d3
       .scaleLinear()
       .domain(valueDomain)
       .range([-30, 30]);
 
-    var offset = 3 * px;
+    const offset = 3 * px;
 
-    var myArc = d3
+    const myArc = d3
       .arc()
       .innerRadius(size + offset)
       .outerRadius(size + offset + 1)
       .startAngle(-Math.PI / 6)
       .endAngle(Math.PI / 6);
 
-    var arcAxis = el
+    const arcAxis = el
       .append("g")
       .attr("transform", "translate(" + size / 2 + "," + (size - offset) + ")");
 
@@ -467,7 +467,7 @@ export function arcmapLegend(
       .attr("stroke", "transparent")
       .attr("d", myArc);
 
-    var labelEnter = arcAxis
+    const labelEnter = arcAxis
       .selectAll(".arc-label")
       .data(vTicks)
       .enter()

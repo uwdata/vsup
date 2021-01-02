@@ -11,4 +11,4 @@ export {
   continuousLine as cline
 } from "./continuous";
 import * as legend_ from "./legend";
-export var legend = legend_;
+export const legend = legend_;
