@@ -8,20 +8,20 @@
     "module": "src/index",
     "scripts": {
         "prepublish": "npm run build",
-        "build": "rollup -c && uglifyjs dist/vsup.js -c negate_iife=false -m -o dist/vsup.min.js",
+        "build": "rollup -c && terser dist/vsup.js -m -o dist/vsup.min.js",
         "watch": "rollup -c -w",
         "start": "python -m http.server",
         "lint": "eslint src",
         "lint:fix": "eslint src --fix"
     },
     "dependencies": {
-        "d3": "^5.4.0"
+        "d3": "^6.3.1"
     },
     "devDependencies": {
-        "eslint": "^4.19.1",
-        "rollup": "^0.60.4",
-        "rollup-plugin-node-resolve": "^3.3.0",
-        "uglify-js": "^3.4.0"
+        "eslint": "^7.17.0",
+        "rollup": "^2.35.1",
+        "@rollup/plugin-node-resolve": "^11.0.1",
+        "terser": "^5.5.1"
     },
     "repository": {
         "type": "git",
