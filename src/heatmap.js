@@ -4,12 +4,12 @@ A lightweight factory for making d3 heatmaps.
 import * as d3 from "d3";
 
 export function simpleHeatmap(data, m_scale, m_size, m_id, m_x, m_y) {
-  var x = m_x ? m_x : 0;
-  var y = m_y ? m_y : 0;
-  var size = m_size ? m_size : 0;
-  var scale = m_scale ? m_scale : () => "#fff";
-  var id = m_id;
-  var h;
+  let x = m_x ? m_x : 0;
+  let y = m_y ? m_y : 0;
+  let size = m_size ? m_size : 0;
+  let scale = m_scale ? m_scale : () => "#fff";
+  let id = m_id;
+  let h;
 
   function heatmap(nel) {
     heatmap.el = nel;
@@ -128,19 +128,19 @@ export function simpleHeatmap(data, m_scale, m_size, m_id, m_x, m_y) {
 }
 
 export function simpleArcmap(data, m_scale, m_size, m_id, m_x, m_y) {
-  var arcmap = simpleHeatmap(data, m_scale, m_size, m_id, m_x, m_y);
+  const arcmap = simpleHeatmap(data, m_scale, m_size, m_id, m_x, m_y);
 
   function makeArc(d, size, rows, cols) {
-    var angle = d3
+    const angle = d3
       .scaleLinear()
       .domain([0, cols])
       .range([-Math.PI / 6, Math.PI / 6]);
-    var radius = d3
+    const radius = d3
       .scaleLinear()
       .domain([0, rows])
       .range([size, 0]);
 
-    var arcPath = d3
+    const arcPath = d3
       .arc()
       .innerRadius(radius(d.r + 1))
       .outerRadius(radius(d.r))
